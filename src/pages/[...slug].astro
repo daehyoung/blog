@@ -1,0 +1,34 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts
+    .filter((p) => !p.data.draft)
+    .map((post) => ({
+      params: { slug: post.id.replace(/^\d{4}-\d{2}-\d{2}-/, '') },
+      props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<Layout
+  title={post.data.title}
+  canonicalUrl={post.data.canonical_url}
+>
+  <article>
+    <h1>{post.data.title}</h1>
+    <div class="post-meta">
+      {fmtDate(post.data.date)}
+      {post.data.tags && post.data.tags.length > 0 && (
+        <span> · {post.data.tags.join(', ')}</span>
+      )}
+    </div>
+    <Content />
+  </article>
+</Layout>

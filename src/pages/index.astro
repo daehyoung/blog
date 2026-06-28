@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const slugOf = (id: string) => id.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
+
+const posts = (await getCollection('posts'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // '/blog'
+---
+
+<Layout title="조대형의 기술 노트">
+  <h1>조대형의 기술 노트</h1>
+  <p class="post-meta">LLM · AI 에이전트 · 온프레미스 시스템에 대한 기술 글.</p>
+
+  <ul class="post-list">
+    {
+      posts.map((post) => (
+        <li>
+          <a class="title" href={`${base}/${slugOf(post.id)}`}>
+            {post.data.title}
+          </a>
+          <div class="meta">
+            {fmtDate(post.data.date)}
+            {post.data.tags && post.data.tags.length > 0 && (
+              <span> · {post.data.tags.join(', ')}</span>
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
