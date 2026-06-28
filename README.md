@@ -84,5 +84,5 @@ LLM·AI 에이전트·온프레미스 시스템을 중심으로 정리한 기술
 
 ## 👤 작성자
 
-- **조대형** · daehyoung.cho@gmail.com
+- **조대형** · luxsoft.kr@gmail.com
 - 글 일부는 Claude(Anthropic)와 협업해 작성·교정했습니다.

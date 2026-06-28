@@ -1,13 +1,20 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import mermaid from 'astro-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
   // GitHub Pages 프로젝트 페이지: https://daehyoung.github.io/blog/
   site: 'https://daehyoung.github.io',
   base: '/blog',
-  // 마크다운 코드블록 하이라이팅 등 기본값 사용
+  // ```mermaid 코드블록을 다이어그램으로 렌더 (다크모드 data-theme 자동 연동)
+  integrations: [mermaid({ theme: 'default', autoTheme: true })],
+  // 코드블록: 라이트/다크 듀얼 테마 (CSS의 data-theme로 전환)
   markdown: {
-    shikiConfig: { theme: 'github-light', wrap: true },
+    shikiConfig: {
+      themes: { light: 'github-light', dark: 'github-dark' },
+      defaultColor: false,
+      wrap: true,
+    },
   },
 });

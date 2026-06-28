@@ -9,15 +9,14 @@ const slugOf = (id: string) =>
     .join('/');
 const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
 const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // '/blog'
+const tagUrl = (t: string) => `${base}/tags/${t}`;
 
 const all = (await getCollection('posts')).filter((p) => !p.data.draft);
 
-// 시리즈에 속하지 않은 글(원본·단독) — 최신순
 const standalone = all
   .filter((p) => !p.data.series)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-// 시리즈별로 묶고, series_order로 정렬
 const seriesMap = new Map<string, typeof all>();
 for (const p of all.filter((p) => p.data.series)) {
   const key = p.data.series as string;
@@ -30,25 +29,34 @@ for (const arr of seriesMap.values()) {
 const seriesList = [...seriesMap.entries()];
 ---
 
-<Layout title="조대형의 기술 노트">
-  <h1>조대형의 기술 노트</h1>
-  <p class="post-meta">LLM · AI 에이전트 · 온프레미스 시스템에 대한 기술 글.</p>
+<Layout
+  title="조대형의 기술 노트"
+  description="LLM · AI 에이전트 · 온프레미스 시스템에 대한 기술 글"
+>
+  <section class="intro">
+    <h1>조대형의 기술 노트</h1>
+    <p class="lead">LLM · AI 에이전트 · 온프레미스 시스템에 대한 기술 글.</p>
+  </section>
 
   {
     standalone.length > 0 && (
-      <section>
-        <h2>글</h2>
-        <ul class="post-list">
+      <section class="post-section">
+        <h2 class="section-title">글</h2>
+        <ul class="card-list">
           {standalone.map((post) => (
             <li>
-              <a class="title" href={`${base}/${slugOf(post.id)}`}>
-                {post.data.title}
-              </a>
-              <div class="meta">
-                {fmtDate(post.data.date)}
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <span> · {post.data.tags.join(', ')}</span>
-                )}
+              <div class="card">
+                <h3 class="card-title">
+                  <a class="card-titlelink" href={`${base}/${slugOf(post.id)}`}>
+                    {post.data.title}
+                  </a>
+                </h3>
+                <div class="card-meta">
+                  <time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time>
+                  {post.data.tags?.slice(0, 5).map((t) => (
+                    <a class="tag" href={tagUrl(t)}>#{t}</a>
+                  ))}
+                </div>
               </div>
             </li>
           ))}
@@ -59,22 +67,29 @@ const seriesList = [...seriesMap.entries()];
 
   {
     seriesList.map(([name, parts]) => (
-      <section>
-        <h2>📚 시리즈: {name}</h2>
-        <ul class="post-list">
+      <section class="post-section">
+        <h2 class="section-title">
+          <span class="section-badge">시리즈</span>
+          {name}
+        </h2>
+        <ul class="card-list">
           {parts.map((post) => (
             <li>
-              <a class="title" href={`${base}/${slugOf(post.id)}`}>
-                {post.data.series_order != null && (
-                  <span class="series-no">{post.data.series_order}편 · </span>
-                )}
-                {post.data.title}
-              </a>
-              <div class="meta">
-                {fmtDate(post.data.date)}
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <span> · {post.data.tags.join(', ')}</span>
-                )}
+              <div class="card">
+                <h3 class="card-title">
+                  {post.data.series_order != null && (
+                    <span class="card-no">{post.data.series_order}편</span>
+                  )}
+                  <a class="card-titlelink" href={`${base}/${slugOf(post.id)}`}>
+                    {post.data.title}
+                  </a>
+                </h3>
+                <div class="card-meta">
+                  <time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time>
+                  {post.data.tags?.slice(0, 5).map((t) => (
+                    <a class="tag" href={tagUrl(t)}>#{t}</a>
+                  ))}
+                </div>
               </div>
             </li>
           ))}
