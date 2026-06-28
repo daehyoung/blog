@@ -59,6 +59,7 @@ social/                         # 배포 초안(LinkedIn 등). 빌드 안 됨
 - **다이어그램**: ` ```mermaid ` 블록은 `astro-mermaid`가 렌더(다크모드 자동 연동).
 - **이메일**: `luxsoft.kr@gmail.com`. 템플릿에서 `data-user`/`data-domain`로 난독화 → 생주소를 정적 HTML에 박지 말 것.
 - **byline**: 작성일·작성자(조대형, 클로드)는 `[...slug].astro`가 자동 출력. 본문에 따로 적지 않는다.
+- **예약 발행**: 모든 콘텐츠 쿼리는 `getPublishedPosts()`(`src/lib/posts.ts`)를 쓴다 — KST 기준 `date ≤ 오늘`만 공개. 새 글 `date`를 미래로 적고 푸시하면 일일 cron이 그날 자동 공개. **새 페이지 쿼리도 `getCollection` 직접 말고 이 헬퍼를 쓸 것.**
 
 ## 5. 작업 완료 시 (동기화)
 

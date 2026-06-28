@@ -1,12 +1,11 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
+import { getPublishedPosts } from '../lib/posts';
 import Layout from '../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
-  return posts
-    .filter((p) => !p.data.draft)
-    .map((post) => ({
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
       params: {
         slug: post.id
           .split('/')
