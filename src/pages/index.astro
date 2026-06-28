@@ -2,35 +2,84 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-const slugOf = (id: string) => id.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+const slugOf = (id: string) =>
+  id
+    .split('/')
+    .map((seg) => seg.replace(/^\d{4}-\d{2}-\d{2}-/, ''))
+    .join('/');
 const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // '/blog'
 
-const posts = (await getCollection('posts'))
-  .filter((p) => !p.data.draft)
+const all = (await getCollection('posts')).filter((p) => !p.data.draft);
+
+// 시리즈에 속하지 않은 글(원본·단독) — 최신순
+const standalone = all
+  .filter((p) => !p.data.series)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // '/blog'
+// 시리즈별로 묶고, series_order로 정렬
+const seriesMap = new Map<string, typeof all>();
+for (const p of all.filter((p) => p.data.series)) {
+  const key = p.data.series as string;
+  if (!seriesMap.has(key)) seriesMap.set(key, []);
+  seriesMap.get(key)!.push(p);
+}
+for (const arr of seriesMap.values()) {
+  arr.sort((a, b) => (a.data.series_order ?? 0) - (b.data.series_order ?? 0));
+}
+const seriesList = [...seriesMap.entries()];
 ---
 
 <Layout title="조대형의 기술 노트">
   <h1>조대형의 기술 노트</h1>
   <p class="post-meta">LLM · AI 에이전트 · 온프레미스 시스템에 대한 기술 글.</p>
 
-  <ul class="post-list">
-    {
-      posts.map((post) => (
-        <li>
-          <a class="title" href={`${base}/${slugOf(post.id)}`}>
-            {post.data.title}
-          </a>
-          <div class="meta">
-            {fmtDate(post.data.date)}
-            {post.data.tags && post.data.tags.length > 0 && (
-              <span> · {post.data.tags.join(', ')}</span>
-            )}
-          </div>
-        </li>
-      ))
-    }
-  </ul>
+  {
+    standalone.length > 0 && (
+      <section>
+        <h2>글</h2>
+        <ul class="post-list">
+          {standalone.map((post) => (
+            <li>
+              <a class="title" href={`${base}/${slugOf(post.id)}`}>
+                {post.data.title}
+              </a>
+              <div class="meta">
+                {fmtDate(post.data.date)}
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <span> · {post.data.tags.join(', ')}</span>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    seriesList.map(([name, parts]) => (
+      <section>
+        <h2>📚 시리즈: {name}</h2>
+        <ul class="post-list">
+          {parts.map((post) => (
+            <li>
+              <a class="title" href={`${base}/${slugOf(post.id)}`}>
+                {post.data.series_order != null && (
+                  <span class="series-no">{post.data.series_order}편 · </span>
+                )}
+                {post.data.title}
+              </a>
+              <div class="meta">
+                {fmtDate(post.data.date)}
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <span> · {post.data.tags.join(', ')}</span>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
 </Layout>
