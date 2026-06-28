@@ -77,9 +77,11 @@ const seriesList = [...seriesMap.entries()];
             <li>
               <div class="card">
                 <h3 class="card-title">
-                  {post.data.series_order != null && (
+                  {post.data.series_label ? (
+                    <span class="card-no">{post.data.series_label}</span>
+                  ) : post.data.series_order != null ? (
                     <span class="card-no">{post.data.series_order}편</span>
-                  )}
+                  ) : null}
                   <a class="card-titlelink" href={`${base}/${slugOf(post.id)}`}>
                     {post.data.title}
                   </a>

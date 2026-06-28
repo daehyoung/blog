@@ -15,6 +15,7 @@ const posts = defineCollection({
     // 시리즈 추적 (원본 ↔ 분할 관계)
     series: z.string().optional(),
     series_order: z.number().optional(),
+    series_label: z.string().optional(), // 카드 뱃지 표기 override (예: "에필로그")
     source_post: z.string().optional(),
     source_sections: z.array(z.string()).optional(),
   }),
