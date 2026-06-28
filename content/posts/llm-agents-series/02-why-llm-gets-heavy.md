@@ -123,4 +123,4 @@ KV 캐시 = 2(K,V) × 레이어 수 × hidden_dim × 바이트 × 토큰 수 × 
 - **원본(전체):** [LLM의 발전 과정과 에이전트](/blog/llm-agents)
 - **이전 편:** [1편 · LLM 잘 쓰는 법 12가지](/blog/llm-agents-series/01-llm-usage-tips)
 - **2편 (지금):** 왜 LLM은 점점 무거워지나 ← 현재 글
-- **다음 편:** 에이전트 해부 — 도구·루프·검증·하네스 *(예정)*
+- **다음 편:** [3편 · 에이전트 해부 — 도구·루프·검증·하네스](/blog/llm-agents-series/03-anatomy-of-an-agent)

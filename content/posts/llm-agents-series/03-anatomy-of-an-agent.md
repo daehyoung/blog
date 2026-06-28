@@ -115,4 +115,4 @@ LLM의 **권한 밖 행동을 모델 바깥에서 제어**하는 장치입니다
 - **원본(전체):** [LLM의 발전 과정과 에이전트](/blog/llm-agents)
 - **이전 편:** [2편 · 왜 LLM은 점점 무거워지나](/blog/llm-agents-series/02-why-llm-gets-heavy)
 - **3편 (지금):** 에이전트 해부 ← 현재 글
-- **다음 편:** 작은 모델 + 루프가 큰 모델을 이긴다 *(예정)*
+- **다음 편:** [4편 · 작은 모델 + 루프가 큰 모델을 이긴다](/blog/llm-agents-series/04-small-model-big-loop)

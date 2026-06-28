@@ -101,4 +101,5 @@ LLM의 발전은 "모델 하나를 더 키우는" 방향에서 **"모델을 둘�
 - **원본(전체):** [LLM의 발전 과정과 에이전트](/blog/llm-agents)
 - **이전 편:** [5편 · RAG: 전통 vs 에이전트](/blog/llm-agents-series/05-rag-naive-vs-agentic)
 - **6편 (지금):** 에이전트 회사의 해자 ← 현재 글 · **시리즈 끝**
+- **스핀오프:** [메모리 부족은 언제 풀릴까 — LLM이 메모리를 '곱셈'으로 먹는 이유](/blog/llm-agents-series/07-why-memory-shortage)
 - 전체 맥락(메모리 계산·용어집 등)은 [원본 글](/blog/llm-agents)에서 이어집니다.

@@ -82,4 +82,4 @@ source_sections: ["7.6", "7.7"]
 - **원본(전체):** [LLM의 발전 과정과 에이전트](/blog/llm-agents)
 - **이전 편:** [3편 · 에이전트 해부](/blog/llm-agents-series/03-anatomy-of-an-agent)
 - **4편 (지금):** 작은 모델 + 루프가 큰 모델을 이긴다 ← 현재 글
-- **다음 편:** RAG — 전통 파이프라인 vs 에이전트 루프 *(예정)*
+- **다음 편:** [5편 · RAG — 전통 파이프라인 vs 에이전트 루프](/blog/llm-agents-series/05-rag-naive-vs-agentic)

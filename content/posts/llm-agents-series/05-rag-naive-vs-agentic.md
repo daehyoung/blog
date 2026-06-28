@@ -83,4 +83,4 @@ RAG가 해결하는 것은 1세대 LLM의 약점과 정확히 겹칩니다: **�
 - **원본(전체):** [LLM의 발전 과정과 에이전트](/blog/llm-agents)
 - **이전 편:** [4편 · 작은 모델 + 루프가 큰 모델을 이긴다](/blog/llm-agents-series/04-small-model-big-loop)
 - **5편 (지금):** RAG — 전통 vs 에이전트 ← 현재 글
-- **다음 편:** 에이전트 회사의 해자 — 공개 vs 비밀 *(예정)*
+- **다음 편:** [6편 · 에이전트 회사의 해자 — 공개 vs 비밀](/blog/llm-agents-series/06-agent-company-moat)
