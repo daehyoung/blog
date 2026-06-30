@@ -28,6 +28,7 @@ Astro 블로그(`/blog`), GitHub Pages 배포. LLM/에이전트 이론 시리즈
 > 디자인 리뉴얼·태그·byline·이메일·Mermaid·AI코딩 1편·CLAUDE.md/current_tasks.md 모두 **푸시 완료**
 > (커밋 `2c3945d` 디자인 / `5a85bd3` 콘텐츠 / `0e33303` AI코딩+문서 / `d4f9f98` 예약발행 → origin/main, GitHub Actions 배포됨).
 > **AI 코딩 시리즈 완결**(00 + 02~07편 + `series_label` 스키마 + index/_map) **푸시 완료** — 00·01편 발행, 02~07편 미래 날짜 drip 대기.
+> **이번 세션 푸시**: `b44634d` 목록 디자인(AstroPaper풍 단순 목록, 섹션 타이틀 구분선) / `c916094` LLM pillar 보강(목차 앵커 링크 + MoE mermaid 구조도 + 활성파라미터 설명 박스). 새 초안 `2026-06-30-how-llms-work.md`(draft)는 별도 커밋.
 
 ## 다음에 할 일
 
@@ -36,9 +37,10 @@ Astro 블로그(`/blog`), GitHub Pages 배포. LLM/에이전트 이론 시리즈
    - 급히 즉시 공개: Actions 탭에서 `workflow_dispatch` 수동 실행, 또는 `draft:true` 병행 사용.
 2. ✅ **AI 코딩 시리즈 00·02~07편 완료** — 작성·빌드·커밋·푸시 끝. 02~07편은 미래 날짜 drip 대기.
 3. ✅ AI 코딩 1편의 내비 링크 연결됨(다음 편 실제 존재).
-4. (선택) About 페이지 + 헤더 "소개" 메뉴 + footer 이메일.
-5. (선택) AI 코딩 시리즈 LinkedIn 요약(`social/`) — 현재 7편(메모리 부족)만 있음.
-6. (모니터링) 07-02부터 격일 cron drip 공개가 의도대로 뜨는지 확인.
+4. **신규 pillar 집필 중**: `2026-06-30-how-llms-work.md`(「LLM은 어떻게 작동하는가 — 토큰 하나가 답이 되기까지」, **draft**). 입문·비유 중심 롱폼 10장 + 부록 A~E. 목차/골격 완성, `› (초안)` 메모를 본문으로 채우는 단계. 비유 줄기: 자동완성→레고→**유유상종 지도**→형광펜→끝말잇기. **출처 명시 완료**(라시카 『Build a LLM (From Scratch)』 학습 기반 → 최상단 「이 글에 대하여」 박스 + 미주 [^4][^5][^6] + 부록 E 코드 헤더 규칙). 재료: 루트 `01_embedding.md`·`02_attention.md`.
+5. (선택) About 페이지 + 헤더 "소개" 메뉴 + footer 이메일.
+6. (선택) AI 코딩 시리즈 LinkedIn 요약(`social/`) — 현재 7편(메모리 부족)만 있음.
+7. (모니터링) 07-02부터 격일 cron drip 공개가 의도대로 뜨는지 확인.
 
 ## 주의사항
 
