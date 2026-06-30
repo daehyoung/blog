@@ -42,21 +42,17 @@ const seriesList = [...seriesMap.entries()];
     standalone.length > 0 && (
       <section class="post-section">
         <h2 class="section-title">글</h2>
-        <ul class="card-list">
+        <ul class="post-list">
           {standalone.map((post) => (
-            <li>
-              <div class="card">
-                <h3 class="card-title">
-                  <a class="card-titlelink" href={`${base}/${slugOf(post.id)}`}>
-                    {post.data.title}
-                  </a>
-                </h3>
-                <div class="card-meta">
-                  <time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time>
-                  {post.data.tags?.slice(0, 5).map((t) => (
-                    <a class="tag" href={tagUrl(t)}>#{t}</a>
-                  ))}
-                </div>
+            <li class="post-item">
+              <h3 class="post-item-title">
+                <a href={`${base}/${slugOf(post.id)}`}>{post.data.title}</a>
+              </h3>
+              <div class="post-item-meta">
+                <time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time>
+                {post.data.tags?.slice(0, 5).map((t) => (
+                  <a class="tag" href={tagUrl(t)}>#{t}</a>
+                ))}
               </div>
             </li>
           ))}
@@ -72,26 +68,22 @@ const seriesList = [...seriesMap.entries()];
           <span class="section-badge">시리즈</span>
           {name}
         </h2>
-        <ul class="card-list">
+        <ul class="post-list">
           {parts.map((post) => (
-            <li>
-              <div class="card">
-                <h3 class="card-title">
-                  {post.data.series_label ? (
-                    <span class="card-no">{post.data.series_label}</span>
-                  ) : post.data.series_order != null ? (
-                    <span class="card-no">{post.data.series_order}편</span>
-                  ) : null}
-                  <a class="card-titlelink" href={`${base}/${slugOf(post.id)}`}>
-                    {post.data.title}
-                  </a>
-                </h3>
-                <div class="card-meta">
-                  <time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time>
-                  {post.data.tags?.slice(0, 5).map((t) => (
-                    <a class="tag" href={tagUrl(t)}>#{t}</a>
-                  ))}
-                </div>
+            <li class="post-item">
+              <h3 class="post-item-title">
+                {post.data.series_label ? (
+                  <span class="post-no">{post.data.series_label}</span>
+                ) : post.data.series_order != null ? (
+                  <span class="post-no">{post.data.series_order}편</span>
+                ) : null}
+                <a href={`${base}/${slugOf(post.id)}`}>{post.data.title}</a>
+              </h3>
+              <div class="post-item-meta">
+                <time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time>
+                {post.data.tags?.slice(0, 5).map((t) => (
+                  <a class="tag" href={tagUrl(t)}>#{t}</a>
+                ))}
               </div>
             </li>
           ))}
