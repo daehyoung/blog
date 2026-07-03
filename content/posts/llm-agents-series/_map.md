@@ -13,6 +13,7 @@
 
 | 편 | 파일 | 제목 | 원본 출처(장·절) | URL | 상태 |
 |---|---|---|---|---|---|
+| 개요 | `00-overview.md` | 들어가며 — 왜 에이전트가 나타났는가 (목적 + 문제→해결 + 로드맵/가이드) | 시리즈 개요 | `/blog/llm-agents-series/00-overview` | ✅ 완료 |
 | 1 | `01-llm-usage-tips.md` | LLM 잘 쓰는 법 12가지 | 부록 C | `/blog/llm-agents-series/01-llm-usage-tips` | ✅ 완료 |
 | 2 | `02-why-llm-gets-heavy.md` | 왜 LLM은 점점 무거워지나 (컨텍스트·MoE·양자화) | 3·4·5장 + 부록 A | `…/02-why-llm-gets-heavy` | ✅ 완료 |
 | 3 | `03-anatomy-of-an-agent.md` | 에이전트 해부 — 도구·루프·검증·하네스 | 7.1~7.5 | `…/03-anatomy-of-an-agent` | ✅ 완료 |
@@ -20,6 +21,13 @@
 | 5 | `05-rag-naive-vs-agentic.md` | RAG: 전통 파이프라인 vs 에이전트 루프 | 9장 | `…/05-rag-naive-vs-agentic` | ✅ 완료 |
 | 6 | `06-agent-company-moat.md` | 에이전트 회사의 해자 — 공개 vs 비밀 | 10장 | `…/06-agent-company-moat` | ✅ 완료 |
 | 7 (스핀오프) | `07-why-memory-shortage.md` | 메모리 부족은 언제 풀릴까 (시장·수요 관점) | 부록 A | `…/07-why-memory-shortage` | ✅ 완료 |
+
+## 시리즈 랜딩(개요)
+
+- **별도 Astro 인덱스 페이지 없음.** `00-overview.md`(들어가며)가 개요·랜딩 역할을 겸한다. (AI 코딩 실전과 동일한 방식)
+- 내용: **왜 이 시리즈를 쓰게 되었나**(동기) + **무엇을 다루나**(로드맵, 편별 한 줄 요약) + **이렇게 읽으세요**(독자 유형별 가이드) + 원본 링크.
+- frontmatter에 `series_order` 없음 → 홈 시리즈 목록에서 `?? 0`으로 **맨 앞**에 정렬, post-no 라벨 없이 제목만 노출.
+- 새 편 추가 시 이 글의 "로드맵" 목록도 함께 갱신할 것.
 
 ## 추적 규칙
 
