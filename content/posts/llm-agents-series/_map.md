@@ -20,7 +20,9 @@
 | 4 | `04-small-model-big-loop.md` | 작은 모델 + 루프가 큰 모델을 이긴다 | 7.6·7.7 | `…/04-small-model-big-loop` | ✅ 완료 |
 | 5 | `05-rag-naive-vs-agentic.md` | RAG: 전통 파이프라인 vs 에이전트 루프 | 9장 | `…/05-rag-naive-vs-agentic` | ✅ 완료 |
 | 6 | `06-agent-company-moat.md` | 에이전트 회사의 해자 — 공개 vs 비밀 | 10장 | `…/06-agent-company-moat` | ✅ 완료 |
-| 7 (스핀오프) | `07-why-memory-shortage.md` | 메모리 부족은 언제 풀릴까 (시장·수요 관점) | 부록 A | `…/07-why-memory-shortage` | ✅ 완료 |
+| 7 (스핀오프) | `07-why-memory-shortage.md` | 메모리 부족은 언제 풀릴까 (시장·수요 관점) | 부록 A | `…/07-why-memory-shortage` | ✅ 완료 (§6 예측↔실측 표 보강, 참고자료 A·B 링크) |
+| 참고자료 A | `08-memory-supply-demand.md` | 메모리 공급·수요 증가율 비율 분석 (2026 시장 데이터) | 부록 A / 외부 시장 데이터 | `…/08-memory-supply-demand` | ✅ 완료 |
+| 참고자료 B | `09-token-usage-benchmark.md` | 모델별 토큰 사용량 실측 벤치마크 (자체 측정) | 부록 A / 자체 측정 | `…/09-token-usage-benchmark` | ✅ 완료 |
 
 ## 시리즈 랜딩(개요)
 
