@@ -184,49 +184,67 @@ D램 출하의 57%가 데이터센터로 (2026)
 4. HBM은 완판·장기계약(LTA) 구조라 시장가격에 의한 수급 신호가 작동하지 않으며, 비율 산정에서 제외하거나 별도 취급해야 한다.
 5. 나무위키 등 위키 기반 출처(미주 16)는 2차 집계 자료로, 방향성 확인용 보조 근거로만 사용했다.
 
+### 출처 등급 — 1차 원천 vs 2차·3차 가공
+
+출처는 **데이터를 직접 생성·측정한 1차 기관**과 이를 **인용·보도·재집계한 2차·3차**로 나뉜다. 각 미주 앞에 태그(`[1차]`·`[2차·전달]`·`[3차·집계]` 등)로 표시했다. 신뢰도가 다르므로 논지별로 어느 등급이 떠받치는지 구분해야 한다.
+
+| 등급 | 해당 출처 | 논지 기여 |
+|---|---|---|
+| **1차 (원천)** | TrendForce·Counterpoint·IDC·Gartner·SigmaIntel·DataReportal·Stanford HAI(시장조사), Google·Sensor Tower(당사자) | **수급 뼈대** — 견고 |
+| **2차 (분석·전달)** | 증권사 리서치(IBK·하나·메리츠), 매체(ZDNet·테크월드·이데일리·Tom's·매거진한경) | 전망·전달 — 방법론 있음 |
+| **3차 (집계·개인·위키)** | Demandsage·ALM·Adam Holter·나무위키·thesmileinfo | 보조·방향성 — **취약** |
+
+**교차검증이 필요한 취약 고리:**
+
+- **AI 세그먼트 +105/110%([^3])** — 인지도 낮은 **단일 리서치(SigmaIntel) + 매체 경유**. 본편 7편의 "AI 세그먼트 희석 보정"이 이 수치에 크게 기대므로 **가장 보강이 필요**하다(추가 1차 리서치로 재확인 권장).
+- **사용자·구독자 수치([^8][^10][^11])** — **3차 집계 블로그** 의존. 방향성 확인용으로만. 단 구글 토큰([^5])은 1차 당사자라 견고.
+- **[^16] 나무위키·[^19] 미확인 2차블로그** — 보조 근거로만.
+
+즉 **수급 핵심(비트 수요/공급 비율·데이터센터 비중·HBM 웨이퍼)은 1차 시장조사로 견고**하나, **원수요의 사용자 지표와 AI 세그먼트 성장률은 상대적으로 약한 출처에 의존**한다.
+
 ---
 
 ## 미주 (참고 자료 및 링크)
 
-[^1]: IBK투자증권, 「Shortage! Shortage! Shortage!」 반도체 산업 보고서, 2025.12.31. — 2026년 수요 비트 증가율 23.1%, 응용처별 증가율(서버 41.2%, PC 8.5%, 모바일 6.3%), 3사 CAPEX 및 비트 증가율, 서버 비중 전망(2026년 54.3% → 2028년 60%). <https://m.ibks.com/iko/IKO01/download.do?seq=6714&menuCode=IKO010301&attatchCd=ATTATCH1>
+[^1]: **[2차·분석]** IBK투자증권, 「Shortage! Shortage! Shortage!」 반도체 산업 보고서, 2025.12.31. — 2026년 수요 비트 증가율 23.1%, 응용처별 증가율(서버 41.2%, PC 8.5%, 모바일 6.3%), 3사 CAPEX 및 비트 증가율, 서버 비중 전망(2026년 54.3% → 2028년 60%). <https://m.ibks.com/iko/IKO01/download.do?seq=6714&menuCode=IKO010301&attatchCd=ATTATCH1>
 
-[^2]: TrendForce, FMS 2024 발표자료 (Avril Wu), 2024.8. — 2024/2025년 공급 비트 증가율(16%/18%), 수요 비트 증가율(17%/23%). <https://files.futurememorystorage.com/proceedings/2024/20240806_BMKT-101-1_WU.pdf>
+[^2]: **[1차]** TrendForce, FMS 2024 발표자료 (Avril Wu), 2024.8. — 2024/2025년 공급 비트 증가율(16%/18%), 수요 비트 증가율(17%/23%). <https://files.futurememorystorage.com/proceedings/2024/20240806_BMKT-101-1_WU.pdf>
 
-[^3]: 시그마인텔(SigmaIntel) 전망, ZDNet Korea 보도, 2026.4.12. — 2025년 8% 공급과잉 → 2026년 12% 공급부족, AI 서버 D램 수요 +105%, HBM 비트 수요 +110%, 가전·IT용 수요 역성장, 서버 D램 고정가 3\~4배, 하반기 가격 상승률 5\~20% 둔화 전망, HBM 웨이퍼 비중 20% 초과, 캐파 성장 연 5% 미만 분석. <https://zdnet.co.kr/view/?no=20260412171259>
+[^3]: **[1차·매체경유]** 시그마인텔(SigmaIntel) 전망, ZDNet Korea 보도, 2026.4.12. — 2025년 8% 공급과잉 → 2026년 12% 공급부족, AI 서버 D램 수요 +105%, HBM 비트 수요 +110%, 가전·IT용 수요 역성장, 서버 D램 고정가 3\~4배, 하반기 가격 상승률 5\~20% 둔화 전망, HBM 웨이퍼 비중 20% 초과, 캐파 성장 연 5% 미만 분석. <https://zdnet.co.kr/view/?no=20260412171259>
 
-[^4]: 테크월드, 「메모리 가격 130% 급등, AI 슈퍼사이클이 '저가 메모리 시대' 끝낸다」, 2026.2.27. — 1Q26 범용 D램 계약가 90\~95% 상향(트렌드포스), 가트너 130% 폭등 및 PC -10.4%/스마트폰 -8.4% 출하 전망, HBM 웨이퍼 비중 1/4 도달 시 실효 공급 축소. <https://www.epnc.co.kr/news/articleView.html?idxno=329155>
+[^4]: **[2차·전달]** 테크월드, 「메모리 가격 130% 급등, AI 슈퍼사이클이 '저가 메모리 시대' 끝낸다」, 2026.2.27. — 1Q26 범용 D램 계약가 90\~95% 상향(트렌드포스), 가트너 130% 폭등 및 PC -10.4%/스마트폰 -8.4% 출하 전망, HBM 웨이퍼 비중 1/4 도달 시 실효 공급 축소. <https://www.epnc.co.kr/news/articleView.html?idxno=329155>
 
-[^5]: Google I/O 2026 키노트 (Sundar Pichai), 2026.5.19\~20. — 월간 토큰 처리량 9.7조(2024) → 480조(2025) → 3,200조(2026), 2년간 330배, 분당 190억 토큰. <https://cryptobriefing.com/google-3-2-quadrillion-tokens-monthly/>
+[^5]: **[1차·매체경유]** Google I/O 2026 키노트 (Sundar Pichai), 2026.5.19\~20. — 월간 토큰 처리량 9.7조(2024) → 480조(2025) → 3,200조(2026), 2년간 330배, 분당 190억 토큰. <https://cryptobriefing.com/google-3-2-quadrillion-tokens-monthly/>
 
-[^6]: TrendForce News (Commercial Times 인용), 「AI Reportedly to Consume 20% of Global DRAM Wafer Capacity in 2026」, 2025.12.26. — 2026년 D램 캐파 40EB, 연간 캐파 증가 10\~15%, HBM 1GB = 범용 D램 4배 캐파 소모, GDDR7 1.7배, AI 등가 소비 20%. <https://www.trendforce.com/news/2025/12/26/news-ai-reportedly-to-consume-20-of-global-dram-wafer-capacity-in-2026-hbm-gddr7-lead-demand/>
+[^6]: **[1차]** TrendForce News (Commercial Times 인용), 「AI Reportedly to Consume 20% of Global DRAM Wafer Capacity in 2026」, 2025.12.26. — 2026년 D램 캐파 40EB, 연간 캐파 증가 10\~15%, HBM 1GB = 범용 D램 4배 캐파 소모, GDDR7 1.7배, AI 등가 소비 20%. <https://www.trendforce.com/news/2025/12/26/news-ai-reportedly-to-consume-20-of-global-dram-wafer-capacity-in-2026-hbm-gddr7-lead-demand/>
 
-[^7]: 매거진한경, 「범용 D램 HBM 수익성 추월…반도체 내년은」, 2025.12. — 2026\~2027년 신규 캐파 확충 여력 부족, 삼성 P5·용인 클러스터 2028년 가동, SK하이닉스 HBM 완판 및 2027년까지 공급부족 전망, 서버당 D램 탑재 용량 +15%. <https://magazine.hankyung.com/business/article/202512043643b>
+[^7]: **[2차·전달]** 매거진한경, 「범용 D램 HBM 수익성 추월…반도체 내년은」, 2025.12. — 2026\~2027년 신규 캐파 확충 여력 부족, 삼성 P5·용인 클러스터 2028년 가동, SK하이닉스 HBM 완판 및 2027년까지 공급부족 전망, 서버당 D램 탑재 용량 +15%. <https://magazine.hankyung.com/business/article/202512043643b>
 
-[^8]: Adam Holter, 「Google Now Processes 1.3 Quadrillion AI Tokens Each Month」, 2026.4. — OpenAI 월 약 260조 토큰, Groq 50조+, 구글 1,300조(2025.10 시점) 비교. <https://adam.holter.com/google-now-processes-1-3-quadrillion-ai-tokens-each-month/>
+[^8]: **[3차·집계]** Adam Holter, 「Google Now Processes 1.3 Quadrillion AI Tokens Each Month」, 2026.4. — OpenAI 월 약 260조 토큰, Groq 50조+, 구글 1,300조(2025.10 시점) 비교. <https://adam.holter.com/google-now-processes-1-3-quadrillion-ai-tokens-each-month/>
 
-[^9]: UncoverAlpha, 「Why Token Optimization Is a Gift to the Hyperscalers」, 2026.6. — 마이크로소프트 분기 100조+ 토큰(전년비 5배, 월 최대 50조), FY3Q26 기준 연 1조 토큰 이상 고객 300곳+ (분기 +30% 가속), 에이전트 세션당 토큰 수백만 개로 확대(제본스 역설 논거). <https://www.uncoveralpha.com/p/why-token-optimization-is-a-gift>
+[^9]: **[2차·분석]** UncoverAlpha, 「Why Token Optimization Is a Gift to the Hyperscalers」, 2026.6. — 마이크로소프트 분기 100조+ 토큰(전년비 5배, 월 최대 50조), FY3Q26 기준 연 1조 토큰 이상 고객 300곳+ (분기 +30% 가속), 에이전트 세션당 토큰 수백만 개로 확대(제본스 역설 논거). <https://www.uncoveralpha.com/p/why-token-optimization-is-a-gift>
 
-[^10]: Demandsage, 「ChatGPT Statistics (July 2026)」 — WAU 3억(2024.12) → 4억(2025.2) → 8억(2025 하반기) → 9억(2026.2), 월간 활성 사용자 10억 돌파(2026.6, Sensor Tower/Reuters), 일 20억+ 프롬프트. <https://www.demandsage.com/chatgpt-statistics/>
+[^10]: **[3차·집계]** Demandsage, 「ChatGPT Statistics (July 2026)」 — WAU 3억(2024.12) → 4억(2025.2) → 8억(2025 하반기) → 9억(2026.2), 월간 활성 사용자 10억 돌파(2026.6, Sensor Tower/Reuters), 일 20억+ 프롬프트. <https://www.demandsage.com/chatgpt-statistics/>
 
-[^11]: ALM Corp, 「ChatGPT Reaches 900 Million Weekly Active Users」, 2026.3.3. — 유료 구독자 타임라인(2023 하반기 50만 → 2024 상반기 980만 → 2024 하반기 1,650만 → 2025 중반 2,000만 → 2026.2 5,000만+), 2025.7 이후 주당 약 43.3만 명 순증, 기업용 시트 900만+(2025.9 대비 4배). <https://almcorp.com/blog/chatgpt-900-million-weekly-active-users/>
+[^11]: **[3차·집계]** ALM Corp, 「ChatGPT Reaches 900 Million Weekly Active Users」, 2026.3.3. — 유료 구독자 타임라인(2023 하반기 50만 → 2024 상반기 980만 → 2024 하반기 1,650만 → 2025 중반 2,000만 → 2026.2 5,000만+), 2025.7 이후 주당 약 43.3만 명 순증, 기업용 시트 900만+(2025.9 대비 4배). <https://almcorp.com/blog/chatgpt-900-million-weekly-active-users/>
 
-[^12]: Tom's Hardware (Counterpoint Research 인용), 「Server memory prices to double year-over-year in 2026」, 2025.11.19. — 2025년 D램 가격 연초 대비 +50%, 서버 DDR5 2026년 말까지 2배 전망, Grace CPU당 LPDDR5X 480GB(프리미엄 스마트폰 16GB의 30배). <https://www.tomshardware.com/pc-components/dram/nvidias-demand-for-lpddr5x-could-double-smartphone-and-server-memory-prices-in-2026-seismic-shift-means-even-smartphone-class-memory-isnt-safe-from-ai-induced-crunch>
+[^12]: **[1차·매체경유]** Tom's Hardware (Counterpoint Research 인용), 「Server memory prices to double year-over-year in 2026」, 2025.11.19. — 2025년 D램 가격 연초 대비 +50%, 서버 DDR5 2026년 말까지 2배 전망, Grace CPU당 LPDDR5X 480GB(프리미엄 스마트폰 16GB의 30배). <https://www.tomshardware.com/pc-components/dram/nvidias-demand-for-lpddr5x-could-double-smartphone-and-server-memory-prices-in-2026-seismic-shift-means-even-smartphone-class-memory-isnt-safe-from-ai-induced-crunch>
 
-[^13]: Digital Applied (DataReportal Digital 2026, Stanford HAI AI Index 2026 인용), 「AI Usage Statistics 2026」 — 독립형 AI 도구 월간 사용자 10억+, 내장형 포함 약 15억, 미국 인터넷 성인 침투율 약 56%, 싱가포르 61%. <https://www.digitalapplied.com/blog/ai-usage-statistics-2026-who-uses-ai-how-much-data>
+[^13]: **[1차·매체경유]** Digital Applied (DataReportal Digital 2026, Stanford HAI AI Index 2026 인용), 「AI Usage Statistics 2026」 — 독립형 AI 도구 월간 사용자 10억+, 내장형 포함 약 15억, 미국 인터넷 성인 침투율 약 56%, 싱가포르 61%. <https://www.digitalapplied.com/blog/ai-usage-statistics-2026-who-uses-ai-how-much-data>
 
-[^14]: 카운터포인트리서치, 「데이터 센터 D램 수요, 2026년 출하량 57% 차지하며 중심축 이동」, 2026.6. — 2026년 D램 출하 중 서버 48% + HBM 9% = 57%, 매출 기준 65%. <https://korea.counterpointresearch.com/2026-dram-datacenter-hbm-growth/>
+[^14]: **[1차]** 카운터포인트리서치, 「데이터 센터 D램 수요, 2026년 출하량 57% 차지하며 중심축 이동」, 2026.6. — 2026년 D램 출하 중 서버 48% + HBM 9% = 57%, 매출 기준 65%. <https://korea.counterpointresearch.com/2026-dram-datacenter-hbm-growth/>
 
-[^15]: IDC (Francisco Jeronimo), 「Global Memory Shortage Crisis」, 2026.2.10. — 2026년 D램 공급 증가 16% YoY(역사적 평균 하회), NAND 17%, PC 15\~20% 가격 인상, 웨이퍼 캐파의 전략적 재배분(구조적 전환) 분석. <https://www.idc.com/resource-center/blog/global-memory-shortage-crisis-market-analysis-and-the-potential-impact-on-the-smartphone-and-pc-markets-in-2026/>
+[^15]: **[1차]** IDC (Francisco Jeronimo), 「Global Memory Shortage Crisis」, 2026.2.10. — 2026년 D램 공급 증가 16% YoY(역사적 평균 하회), NAND 17%, PC 15\~20% 가격 인상, 웨이퍼 캐파의 전략적 재배분(구조적 전환) 분석. <https://www.idc.com/resource-center/blog/global-memory-shortage-crisis-market-analysis-and-the-potential-impact-on-the-smartphone-and-pc-markets-in-2026/>
 
-[^16]: 나무위키, 「2025년 반도체 대란」 — HBM 웨이퍼 투입 비중 5% 미만 → 30%(2026.4 기준) 집계. 2차 자료로 방향성 확인용. <https://namu.wiki/w/2025%EB%85%84%20%EB%B0%98%EB%8F%84%EC%B2%B4%20%EB%8C%80%EB%9E%80>
+[^16]: **[3차·위키]** 나무위키, 「2025년 반도체 대란」 — HBM 웨이퍼 투입 비중 5% 미만 → 30%(2026.4 기준) 집계. 2차 자료로 방향성 확인용. <https://namu.wiki/w/2025%EB%85%84%20%EB%B0%98%EB%8F%84%EC%B2%B4%20%EB%8C%80%EB%9E%80>
 
-[^17]: TrendForce, DRAM 산업 리서치 페이지 — 클린룸 병목, 1b/1c nm 공정 전환 기간 장기화, HBM 전용 팹 운영(평택 P4, M15X), CXMT 규제 제약. (IBK 2025.11.4 보고서 병행 참조) <https://www.trendforce.com/research/category/Semiconductors/DRAM>
+[^17]: **[1차]** TrendForce, DRAM 산업 리서치 페이지 — 클린룸 병목, 1b/1c nm 공정 전환 기간 장기화, HBM 전용 팹 운영(평택 P4, M15X), CXMT 규제 제약. (IBK 2025.11.4 보고서 병행 참조) <https://www.trendforce.com/research/category/Semiconductors/DRAM>
 
-[^18]: 이데일리 (하나증권 인용), 「AI 투자 붐, HBM 넘어 범용 D램까지 확산」, 2025.12.22. — 4Q25 D램 수요 충족률 60%, 서버 D램 50% 미만, 2026년 서버 D램 공급 증가 = 수요 증가의 절반 수준, HBM 매출 비중 2025년 23% → 2026년 16%(트렌드포스). <https://v.daum.net/v/8acNEdx2EO?f=p>
+[^18]: **[2차·분석]** 이데일리 (하나증권 인용), 「AI 투자 붐, HBM 넘어 범용 D램까지 확산」, 2025.12.22. — 4Q25 D램 수요 충족률 60%, 서버 D램 50% 미만, 2026년 서버 D램 공급 증가 = 수요 증가의 절반 수준, HBM 매출 비중 2025년 23% → 2026년 16%(트렌드포스). <https://v.daum.net/v/8acNEdx2EO?f=p>
 
-[^19]: 메리츠증권 리서치 (2차 인용), 「2026 메모리 반도체 투자 전략」 — 수요 증가 60\~70% vs 공급 증가 20\~25% 프레임. 원 보고서 미확인 2차 자료로, 광의의 서버·HBM 수요 기준으로 해석. <https://finance.thesmileinfo.com/2026/04/2026-dramnandhbm.html>
+[^19]: **[3차·전달]** 메리츠증권 리서치 (2차 인용), 「2026 메모리 반도체 투자 전략」 — 수요 증가 60\~70% vs 공급 증가 20\~25% 프레임. 원 보고서 미확인 2차 자료로, 광의의 서버·HBM 수요 기준으로 해석. <https://finance.thesmileinfo.com/2026/04/2026-dramnandhbm.html>
 
-[^20]: TrendForce, 「AI Server Demand to Drive Memory Contract Price Increases in 2Q26」, 2026.3.31. — 2Q26 서버 D램 중심 가격 상승 지속, CSP 장기계약(LTA) 확산, 고용량 RDIMM 우선 조달. <https://www.trendforce.com/presscenter/news/20260331-12995.html>
+[^20]: **[1차]** TrendForce, 「AI Server Demand to Drive Memory Contract Price Increases in 2Q26」, 2026.3.31. — 2Q26 서버 D램 중심 가격 상승 지속, CSP 장기계약(LTA) 확산, 고용량 RDIMM 우선 조달. <https://www.trendforce.com/presscenter/news/20260331-12995.html>
 
 ---
 
