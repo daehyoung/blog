@@ -1,6 +1,6 @@
 ---
 title: "검증방법 — 체크리스트로 게이트를 걸고, 그래도 남는 편향을 사람이 막기"
-date: 2026-07-25
+date: 2026-07-22
 tags: [AI코딩, 소프트웨어공학, 검증, 체크리스트, 학습편향]
 canonical_url: https://daehyoung.github.io/blog/teaching-swe-to-models/05-verification/
 license: CC BY-NC 4.0

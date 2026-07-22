@@ -1,6 +1,6 @@
 ---
 title: "들어가며 — 모델은 왜 '평범하게' 짜는가, 그리고 어떻게 가르칠까"
-date: 2026-07-25
+date: 2026-07-22
 tags: [AI코딩, 소프트웨어공학, 학습편향, 방법론, 시리즈개요]
 canonical_url: https://daehyoung.github.io/blog/teaching-swe-to-models/00-overview/
 license: CC BY-NC 4.0

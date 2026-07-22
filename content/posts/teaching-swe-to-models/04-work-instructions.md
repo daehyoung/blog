@@ -1,6 +1,6 @@
 ---
 title: "작업 지침서 — 각 단계의 허용/금지로 평균을 차단하기"
-date: 2026-07-25
+date: 2026-07-22
 tags: [AI코딩, 소프트웨어공학, 작업지침, 프롬프트, 워크플로우]
 canonical_url: https://daehyoung.github.io/blog/teaching-swe-to-models/04-work-instructions/
 license: CC BY-NC 4.0

@@ -1,6 +1,6 @@
 ---
 title: "에필로그 — 결국 '회사의 업무'를 코드화하는 일, 그리고 진짜 자산은 누구에게 있나"
-date: 2026-07-25
+date: 2026-07-22
 tags: [AI코딩, 소프트웨어공학, 비즈니스, 해자, 에이전트]
 canonical_url: https://daehyoung.github.io/blog/teaching-swe-to-models/06-epilogue-business-as-the-real-asset/
 license: CC BY-NC 4.0

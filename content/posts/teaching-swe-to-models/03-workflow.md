@@ -1,6 +1,6 @@
 ---
 title: "워크플로우 — 애자일 vs 나선형, 무엇을 따르게 할 것인가"
-date: 2026-07-25
+date: 2026-07-22
 tags: [AI코딩, 소프트웨어공학, 나선형, 애자일, 워크플로우]
 canonical_url: https://daehyoung.github.io/blog/teaching-swe-to-models/03-workflow/
 license: CC BY-NC 4.0

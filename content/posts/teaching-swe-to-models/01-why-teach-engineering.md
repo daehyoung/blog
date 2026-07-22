@@ -1,6 +1,6 @@
 ---
 title: "왜 SW 엔지니어링을 가르쳐야 하는가 — 평균으로 끌려가는 모델"
-date: 2026-07-25
+date: 2026-07-22
 tags: [AI코딩, 소프트웨어공학, 학습편향, 평균회귀, 프롬프트]
 canonical_url: https://daehyoung.github.io/blog/teaching-swe-to-models/01-why-teach-engineering/
 license: CC BY-NC 4.0

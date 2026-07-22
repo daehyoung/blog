@@ -1,6 +1,6 @@
 ---
 title: "큰그림 — 어떻게 가르칠 것인가"
-date: 2026-07-25
+date: 2026-07-22
 tags: [AI코딩, 소프트웨어공학, 컨텍스트, 방법론, 워크플로우]
 canonical_url: https://daehyoung.github.io/blog/teaching-swe-to-models/02-how-to-teach-big-picture/
 license: CC BY-NC 4.0
