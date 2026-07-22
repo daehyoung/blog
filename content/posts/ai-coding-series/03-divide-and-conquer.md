@@ -101,4 +101,4 @@ source_sections: [분할 및 정복, 모듈화 분할 전략, 워크플로우]
 - **연결 이론:** [작은 모델 + 루프가 큰 모델을 이긴다](/blog/llm-agents-series/04-small-model-big-loop)
 - **이전 편:** [2편 · 토큰·컨텍스트를 가볍게 유지하는 법](/blog/ai-coding-series/02-tokens-context-keep-light)
 - **3편 (지금):** 분할정복 — 모듈로 쪼개 AI와 일하기 ← 현재 글
-- **다음 편:** *(예정)*
+- **다음 편:** [4편 · 코드보다 문서다 — AI 시대의 역전](/blog/ai-coding-series/04-docs-over-code)

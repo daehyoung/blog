@@ -113,4 +113,4 @@ flowchart LR
 - **연결 이론:** [작은 모델 + 루프가 큰 모델을 이긴다](/blog/llm-agents-series/04-small-model-big-loop)
 - **이전 편:** [3편 · 분할정복](/blog/ai-coding-series/03-divide-and-conquer)
 - **4편 (지금):** 코드보다 문서다 — AI 시대의 역전 ← 현재 글
-- **다음 편:** 코드 쓰기 전에 설계를 검증하라 *(2026-07-11 공개 예정)*
+- **다음 편:** [5편 · 코드 쓰기 전에 설계를 검증하라](/blog/ai-coding-series/05-verify-design-before-code)

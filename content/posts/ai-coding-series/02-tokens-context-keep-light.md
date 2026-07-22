@@ -102,4 +102,4 @@ source_sections: [토큰, 컨텍스트 윈도우, KV 캐시, Stateless, 성능 �
 - **연결 이론:** [왜 LLM은 점점 무거워지나](/blog/llm-agents-series/02-why-llm-gets-heavy)
 - **이전 편:** [1편 · 코딩 에이전트와 장기 협업하는 문서화 시스템](/blog/ai-coding-series/01-doc-system-for-llm-collaboration)
 - **2편 (지금):** 토큰·컨텍스트를 가볍게 유지하는 법 ← 현재 글
-- **다음 편:** 분할정복 — 모듈로 쪼개 AI와 일하기 *(예정)*
+- **다음 편:** [3편 · 분할정복 — 모듈로 쪼개 AI와 일하기](/blog/ai-coding-series/03-divide-and-conquer)

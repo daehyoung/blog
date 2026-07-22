@@ -119,4 +119,4 @@ source_sections: [자동화 가능 범위, 단계별 지침]
 - **연결 이론:** [에이전트 회사의 해자](/blog/llm-agents-series/06-agent-company-moat) · [작은 모델 + 루프](/blog/llm-agents-series/04-small-model-big-loop)
 - **이전 편:** [5편 · 코드 쓰기 전에 설계를 검증하라](/blog/ai-coding-series/05-verify-design-before-code)
 - **6편 (지금):** 워크플로우를 에이전트에게 — 자동화 경계와 단계별 프롬프트 ← 현재 글
-- **다음 편:** *(예정)*
+- **다음 편:** [에필로그 · AI가 되살린 엔지니어링, 더 높아진 사람의 격](/blog/ai-coding-series/07-epilogue-the-bar-rises)

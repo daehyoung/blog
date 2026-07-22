@@ -128,4 +128,4 @@ flowchart LR
 - **연결 이론:** [LLM의 발전 과정과 에이전트](/blog/llm-agents)
 - **이전 편:** [4편 · 코드보다 문서다](/blog/ai-coding-series/04-docs-over-code)
 - **5편 (지금):** 코드 쓰기 전에 설계를 검증하라 ← 현재 글
-- **다음 편:** *(예정)*
+- **다음 편:** [6편 · 워크플로우를 에이전트에게](/blog/ai-coding-series/06-workflow-as-agent-prompts)
