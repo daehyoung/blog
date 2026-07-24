@@ -29,7 +29,7 @@ series_order: 4
 
 ### 예시 ① — '유스케이스 작성' 지침서 (실 프로젝트 가이드에서 추출)
 
-가장 편향이 심한 단계입니다 — 모델은 유스케이스를 시키면 *기능 목록(CRUD)*으로 뭉갭니다. 실제로 쓰는 지침서는 이만큼 촘촘합니다.
+가장 편향이 심한 단계입니다 — 모델은 유스케이스[^usecase]를 시키면 *기능 목록(CRUD)*으로 뭉갭니다. 실제로 쓰는 지침서는 이만큼 촘촘합니다.
 
 ```text
 [입력] requirements.md (시스템 경계·액터·제약)
@@ -112,6 +112,12 @@ series_order: 4
 ---
 
 > 정리: 작업 지침서는 각 단계 **안**을 규율합니다. 4요소(입력·작업·출력·완료기준)에, 평균회귀를 직접 끊는 **허용/금지 목록**을 박습니다. 금지 항목은 모델이 그 단계에서 흔히 저지르는 평균 실패(CRUD화·해피패스·anemic·과잉추상화)와 짝을 이룹니다 — *편향의 지도 위에 벽을 세우는* 것. 그리고 단계별로 그 지침만 로드합니다. 남은 건, 이 지침을 실제로 지켰는지 확인하는 **검증**입니다.
+
+---
+
+## 미주 (참고 자료 및 링크)
+
+[^usecase]: **[표준 문헌]** 유스케이스 방법론의 표준 저작 — Ivar Jacobson, M. Christerson, P. Jonsson, G. Övergaard, *Object-Oriented Software Engineering: A Use Case Driven Approach*, Addison-Wesley, 1992 (유스케이스 개념의 원류) · Kurt Bittner & Ian Spence, *Use Case Modeling*, Addison-Wesley, 2002 · Alistair Cockburn, *Writing Effective Use Cases*, Addison-Wesley, 2001. — 유스케이스는 기능 나열이 아니라 *주 흐름·확장(예외)·선행/사후 조건*을 갖춘 목표 지향 시나리오라는 표준 구조.
 
 ---
 
