@@ -26,9 +26,7 @@ AI가 코드 타이핑(우발적 복잡성)을 가져갔습니다. 그런데 남
 - **1편**: [LLM에게 기능 목록 대신 유스케이스를 주세요](/blog/ai-era-engineering/01-usecases-not-feature-lists) — 말로 코딩하는 사람이 무엇을, 어떤 형식으로 건네는가 *(귀납: 요구 → 모델)*
 - **2편**: [코드 없이 설계를 검증하기](/blog/ai-era-engineering/02-model-verification) — 유스케이스·도메인 모델을 스냅샷으로 무너뜨려보기 *(연역: 코드 이전, 설계를 반증)*
 - **3편**: [디버깅은 재능이 아니라 방법론이다](/blog/ai-era-engineering/03-debugging-methodology) — 27년차의 실전 디버깅 파이프라인 *(연역: 가설 → 반증)*
-- **4편**: [유닛테스트를 어떻게 쓰는가](/blog/ai-era-engineering/04-unit-testing) — 조합 폭발 전에 붙드는 반증 장치 *(검증: 코드)*
-- **에필로그**: [나는 이 길을 거꾸로, 밤을 새워 배웠다](/blog/ai-era-engineering/05-epilogue) — 디버깅에서 요구사항까지 거슬러 온 개인 이야기, 그리고 왜 지금 다시 중요한가
-- **부록**: [Claude Code 엔지니어링 플러그인](/blog/ai-era-engineering/06-appendix-claude-plugins) — 이 방법론을 AI 파트너로 (설치·사용법)
+- **4편**: [유닛테스트를 어떻게 쓰는가](/blog/ai-era-engineering/04-unit-testing) — 조합 폭발 전에 붙드는 반증 장치 *(검증: 코드)*- **부록**: [Claude Code 엔지니어링 플러그인](/blog/ai-era-engineering/06-appendix-claude-plugins) — 이 방법론을 AI 파트너로 (설치·사용법)
 
 > 한 문장으로 — **AI 시대에도 사람이 쥐는 것은 방법론입니다.** 도구는 바뀌어도, 관찰하고 가설을 세우고 반증하는 절차는 바뀌지 않습니다.
 

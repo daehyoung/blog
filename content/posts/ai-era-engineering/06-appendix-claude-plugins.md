@@ -11,7 +11,7 @@ series_label: "부록"
 
 > 📚 시리즈 **「AI 시대의 실전 엔지니어링」 부록**입니다. 본문이 *방법론*이라면, 이 부록은 그 방법론을 **Claude Code에서 AI 파트너로 적용·연습하게 돕는 도구** 이야기입니다.
 
-[에필로그](/blog/ai-era-engineering/05-epilogue)에서 말했듯, AI는 이 공학을 *연습하기에 가장 좋은 파트너*입니다. 마침 Anthropic이 배포하는 **`knowledge-work-plugins`** 마켓플레이스의 **`engineering` 플러그인**이, 이 시리즈가 다룬 주제(디버깅·테스트·설계·리뷰)를 거의 그대로 스킬로 담고 있습니다.
+AI는 이 공학을 *연습하기에 가장 좋은 파트너*이기도 합니다. 마침 Anthropic이 배포하는 **`knowledge-work-plugins`** 마켓플레이스의 **`engineering` 플러그인**이, 이 시리즈가 다룬 주제(디버깅·테스트·설계·리뷰)를 거의 그대로 스킬로 담고 있습니다.
 
 ## 설치
 
@@ -98,6 +98,6 @@ claude plugin install engineering@knowledge-work-plugins
 
 #### 📚 시리즈 내비게이션
 
-- **이전:** [에필로그 · 나는 이 길을 거꾸로 배웠다](/blog/ai-era-engineering/05-epilogue)
+- **이전:** [4편 · 유닛테스트를 어떻게 쓰는가](/blog/ai-era-engineering/04-unit-testing)
 - **부록 (지금):** Claude Code 엔지니어링 플러그인 ← 현재 글 · **시리즈 끝**
 - **처음으로:** [개요 · 코딩은 과학이다](/blog/ai-era-engineering/00-overview)

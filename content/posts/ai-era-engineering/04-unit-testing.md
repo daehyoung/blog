@@ -133,5 +133,5 @@ AI는 테스트를 빠르게 짜지만 두 최빈값 함정에 빠집니다 — 
 
 - **이전:** [3편 · 디버깅은 재능이 아니라 방법론이다](/blog/ai-era-engineering/03-debugging-methodology)
 - **4편 (지금):** 유닛테스트를 어떻게 쓰는가 ← 현재 글
-- **다음:** [에필로그 · 나는 이 길을 거꾸로 배웠다](/blog/ai-era-engineering/05-epilogue)
+- **다음:** [부록 · Claude Code 엔지니어링 플러그인](/blog/ai-era-engineering/06-appendix-claude-plugins)
 - **처음으로:** [개요 · 코딩은 과학이다](/blog/ai-era-engineering/00-overview)
