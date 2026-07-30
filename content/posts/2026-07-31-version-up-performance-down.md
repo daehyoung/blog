@@ -1,6 +1,7 @@
 ---
 title: "버전은 오르는데 왜 더 멍청해 보일까 — 추론력 저하가 아니라 '지시 추종'의 침식"
 date: 2026-07-31
+draft: true
 tags: [LLM, 오버피팅, 지시추종, sycophancy, RLHF, Goodhart, 코딩에이전트]
 canonical_url: https://daehyoung.github.io/blog/version-up-performance-down/
 license: CC BY-NC 4.0
