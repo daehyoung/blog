@@ -21,7 +21,7 @@ license: CC BY-NC 4.0
 
 ## 들어가며
 
-화제부터 짚자. 2026년 7월, 중국 Moonshot의 오픈웨이트 모델 **Kimi K3**가 미국 상위 모델에 필적한다는 소식에 **나스닥 AI·반도체주와 한국 SK하이닉스 등 반도체주가 급락**했다(필라델피아 반도체 지수는 6월 고점 대비 20% 넘게 빠졌다). 2025년 초 **DeepSeek R1** 쇼크의 재판(再版)이었다. 그리고 값싼 오픈·중국 모델(DeepSeek·Z.ai의 GLM·Kimi)이 시장을 흔들 때마다 그림자처럼 따라붙는 게 있다 — 2026년 2월 **OpenAI는 DeepSeek이 자사 모델 출력을 빼내 '증류(distillation)'했다고 공개 비난**했고, **Anthropic도 DeepSeek·Moonshot·MiniMax의 Claude 대상 '증류 공격'을 주장**했다(모두 *제기된 주장* 단계다).[^news] 시장을 흔든 그 '값싼 강함'의 상당 부분이 바로 증류에서 나온다. 그런데 정작 덜 묻는 질문이 있다 — **그렇게 값싸게 찍어낸 증류 모델을, 우리는 어디까지 믿어도 되나?**
+화제부터 짚자. 2026년 7월, 중국 Moonshot의 오픈웨이트 모델 **Kimi K3**가 미국 상위 모델에 필적한다는 소식에 **나스닥 AI·반도체주와 한국 SK하이닉스 등 반도체주가 급락**했다(필라델피아 반도체 지수는 6월 고점 대비 20% 넘게 빠졌다). 2025년 초 **DeepSeek R1**[^r1] 쇼크의 재판(再版)이었다. 그리고 값싼 오픈·중국 모델(DeepSeek·Z.ai의 GLM·Kimi)이 시장을 흔들 때마다 그림자처럼 따라붙는 게 있다 — 2026년 2월 **OpenAI는 DeepSeek이 자사 모델 출력을 빼내 '증류(distillation)'했다고 공개 비난**했고, **Anthropic도 DeepSeek·Moonshot·MiniMax의 Claude 대상 '증류 공격'을 주장**했다(모두 *제기된 주장* 단계다).[^news] 시장을 흔든 그 '값싼 강함'의 상당 부분이 바로 증류에서 나온다. 그런데 정작 덜 묻는 질문이 있다 — **그렇게 값싸게 찍어낸 증류 모델을, 우리는 어디까지 믿어도 되나?**
 
 작은 모델이 큰 모델의 능력을 물려받는 **증류(distillation)** 는 이제 LLM(Large Language Model, 대규모 언어 모델) 생태계의 표준 기법이 되었다. 소비자용 GPU(Graphics Processing Unit, 그래픽 처리 장치)로도 특화 모델을 만들 수 있고, 오픈 웨이트 소형 모델이 크기에 비해 놀랍도록 강한 이유의 상당 부분이 여기에 있다.
 
@@ -65,7 +65,7 @@ license: CC BY-NC 4.0
 1. 강한 teacher에게 프롬프트를 던져 **응답을 대량 생성**
 2. 그 (프롬프트, 응답) 쌍을 student의 SFT 데이터셋으로 사용
 
-이건 엄밀히는 soft-label 증류가 아니라 **텍스트 레벨 증류(sequence-level distillation, 선생님이 만든 '문장'을 통째로 베껴 배우는 방식)** 다. teacher의 내부 logits이 필요 없고 API(Application Programming Interface, 응용 프로그램 인터페이스)만 있으면 되기 때문에 실무에서 압도적으로 많이 쓰인다.
+이건 엄밀히는 soft-label 증류가 아니라 **텍스트 레벨 증류(sequence-level distillation, 선생님이 만든 '문장'을 통째로 베껴 배우는 방식)** 다.[^seqkd] teacher의 내부 logits이 필요 없고 API(Application Programming Interface, 응용 프로그램 인터페이스)만 있으면 되기 때문에 실무에서 압도적으로 많이 쓰인다.
 
 ### 정렬(RLHF, Reinforcement Learning from Human Feedback, 인간 피드백 기반 강화학습 / preference) 단계
 
@@ -91,7 +91,7 @@ teacher의 선호 판단을 신호로 쓰는 RLAIF(Reinforcement Learning from A
 
 증류의 한계를 말할 때 흔히 "증류하면 분포가 중앙값에 몰리고 엣지 케이스가 빠진다"고 설명한다. 이 직관은 **결론은 맞지만 원인 진단이 틀렸다.**
 
-soft label 증류는 오히려 꼬리 정보를 하드 라벨보다 **더 많이** 넘겨준다. Hinton이 2015년 원논문에서 강조한 게 정확히 이것이다. one-hot 하드 라벨은 "정답은 A"라는 한 점짜리 신호라 꼬리 정보가 **0** 이다. 반면 teacher의 soft 분포는 "A가 0.7인데 B도 0.2, C는 0.001…"이라는 **작은 확률값(dark knowledge, 숨은 지식)** 을 담고 있고, temperature(분포를 부드럽게 펴는 조절값)를 올리면 이 꼬리가 더 잘 보이게 증폭된다.
+soft label 증류는 오히려 꼬리 정보를 하드 라벨보다 **더 많이** 넘겨준다. Hinton이 2015년 원논문[^hinton]에서 강조한 게 정확히 이것이다. one-hot 하드 라벨은 "정답은 A"라는 한 점짜리 신호라 꼬리 정보가 **0** 이다. 반면 teacher의 soft 분포는 "A가 0.7인데 B도 0.2, C는 0.001…"이라는 **작은 확률값(dark knowledge, 숨은 지식)** 을 담고 있고, temperature(분포를 부드럽게 펴는 조절값)를 올리면 이 꼬리가 더 잘 보이게 증폭된다.
 
 그러니 "증류라서 중앙에 몰린다"는 틀렸다. 그런데도 극한 케이스에서 어이없는 출력이 나오는 건 사실이다. 진짜 범인은 따로 있다.
 
@@ -116,7 +116,7 @@ student는 작다. 뾰족한 모드와 두꺼운 꼬리를 동시에 표현할 �
 
 ### 원인 3: KL 방향 — 실패 모드가 정반대로 갈린다
 
-손실을 어느 방향으로 재느냐에 따라 꼬리 실패가 정반대로 나타난다.
+손실을 어느 방향으로 재느냐에 따라 꼬리 실패가 정반대로 나타난다.[^kl]
 
 - **한쪽 방향(수학용어로 forward KL, "다 덮으려는" 성향)** — teacher가 확률을 둔 곳에 student가 0을 두면 손실이 폭발하므로, student는 꼬리를 억지로라도 덮으려 한다. 그 부작용으로 **실제론 확률이 없는 빈 골짜기에도 질량을 발라버린다.** → "있지도 않은 걸 그럴듯하게 지어내는" **환각형 실패.**
 - **반대 방향(reverse KL, "몇 개만 붙잡는" 성향)** — student가 몇 개 모드만 잡고 나머지 꼬리를 자신 있게 무시한다. → "드물지만 정당한 케이스를 아예 못 다루는" **탈락형 실패.**
@@ -285,7 +285,7 @@ gradient가 작다는 **증상** 은 같지만, 하나는 "도착해서 멈춤"�
 
 > **핵심 한 줄 — "모델 붕괴"는 둘이다: 한 번 증류의 손실(멈춤)과, 그 산물을 반복해 먹여 무너지는 발산.**
 
-흔히 "모델 붕괴(model collapse)"라 부르는 현상에는 사실 성격이 다른 두 가지가 섞여 있다. 제한 범위를 정하려면 이 둘을 갈라야 한다.
+흔히 "모델 붕괴(model collapse)"[^collapse]라 부르는 현상에는 사실 성격이 다른 두 가지가 섞여 있다. 제한 범위를 정하려면 이 둘을 갈라야 한다.
 
 ### 단발 증류의 꼬리 손실 — 유계(bounded, 어느 선에서 멈춤)
 
@@ -363,3 +363,13 @@ student의 출력이 다시 다음 세대의 학습 데이터가 되고, 그게 
 ---
 
 [^news]: **Kimi K3 시장 충격** — Moonshot AI의 Kimi K3(2026-07-17 공개, 2.8조 파라미터 오픈웨이트)가 벤치마크에서 상위 미국 모델에 필적한다는 소식에 반도체·AI주 급락: 대만 -6%, 일본 -4%, 나스닥 -1.5%, 필라델피아 반도체 지수 6월 고점 대비 -20%, 한국 SK하이닉스 강제 매도 — Fortune·Yahoo Finance·Seeking Alpha 등(2026-07). Z.ai(GLM)도 홍콩 증시 급락. **증류 의혹** — OpenAI의 DeepSeek '증류' 비난(Bloomberg·Rest of World, 2026-02), Anthropic의 DeepSeek·Moonshot·MiniMax '증류 공격' 주장(CNBC, 2026-02-24), DeepSeek R1(2025-01) 관련 OpenAI·Microsoft 주장. ※ 증류 관련은 모두 제기된 *주장* 단계이며 사법 확정 사실이 아니다.
+
+[^hinton]: Geoffrey Hinton, Oriol Vinyals, Jeff Dean, 「Distilling the Knowledge in a Neural Network」, NeurIPS Deep Learning Workshop, 2015. arXiv:1503.02531. — 증류의 원전. 하드 라벨보다 teacher의 soft 분포(*dark knowledge*)가 더 풍부한 학습 신호라는 핵심 주장.
+
+[^seqkd]: Yoon Kim, Alexander M. Rush, 「Sequence-Level Knowledge Distillation」, EMNLP 2016, pp. 1317–1327. — teacher가 *생성한 시퀀스(텍스트)* 로 student를 학습시키는 텍스트 레벨 증류의 정식화. 오늘날 실무 증류의 원형.
+
+[^collapse]: Ilia Shumailov 외, 「AI models collapse when trained on recursively generated data」, *Nature*, 2024 (2023 프리프린트 "The Curse of Recursion", arXiv:2305.17493 기반). — 생성 데이터를 재귀적으로 학습하면 꼬리가 깎여 분포가 중앙으로 수축·붕괴. §10의 근거. ※ 깨끗한 데이터를 *누적*하면 붕괴가 완화된다는 후속 연구(예: arXiv:2404.01413)도 있다.
+
+[^kl]: Thomas Minka, 「Divergence Measures and Message Passing」, Microsoft Research Technical Report MSR-TR-2005-173, 2005. — *forward KL(mass-covering)* 대 *reverse KL(mode-seeking)* 의 상반된 거동. §4의 '환각형 vs 탈락형' 실패 모드의 이론적 근거.
+
+[^r1]: DeepSeek-AI, 「DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning」, 2025. arXiv:2501.12948. — R1과 소형 증류판(R1-Distill-Qwen/Llama) 공개. 이 글 도입부 사례의 출처.
