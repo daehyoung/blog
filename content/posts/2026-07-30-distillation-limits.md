@@ -364,12 +364,12 @@ student의 출력이 다시 다음 세대의 학습 데이터가 되고, 그게 
 
 [^news]: **Kimi K3 시장 충격** — Moonshot AI의 Kimi K3(2026-07-17 공개, 2.8조 파라미터 오픈웨이트)가 벤치마크에서 상위 미국 모델에 필적한다는 소식에 반도체·AI주 급락: 대만 -6%, 일본 -4%, 나스닥 -1.5%, 필라델피아 반도체 지수 6월 고점 대비 -20%, 한국 SK하이닉스 강제 매도 — Fortune·Yahoo Finance·Seeking Alpha 등(2026-07). Z.ai(GLM)도 홍콩 증시 급락. **증류 의혹** — OpenAI의 DeepSeek '증류' 비난(Bloomberg·Rest of World, 2026-02), Anthropic의 DeepSeek·Moonshot·MiniMax '증류 공격' 주장(CNBC, 2026-02-24), DeepSeek R1(2025-01) 관련 OpenAI·Microsoft 주장. ※ 증류 관련은 모두 제기된 *주장* 단계이며 사법 확정 사실이 아니다.
 
-[^hinton]: Geoffrey Hinton, Oriol Vinyals, Jeff Dean, 「Distilling the Knowledge in a Neural Network」, NeurIPS Deep Learning Workshop, 2015. arXiv:1503.02531. — 증류의 원전. 하드 라벨보다 teacher의 soft 분포(*dark knowledge*)가 더 풍부한 학습 신호라는 핵심 주장.
+[^hinton]: Geoffrey Hinton, Oriol Vinyals, Jeff Dean, 「Distilling the Knowledge in a Neural Network」, NeurIPS Deep Learning Workshop, 2015. arXiv:1503.02531. — 증류의 원전. 하드 라벨보다 teacher의 soft 분포(*dark knowledge*)가 더 풍부한 학습 신호라는 핵심 주장. <https://arxiv.org/abs/1503.02531>
 
-[^seqkd]: Yoon Kim, Alexander M. Rush, 「Sequence-Level Knowledge Distillation」, EMNLP 2016, pp. 1317–1327. — teacher가 *생성한 시퀀스(텍스트)* 로 student를 학습시키는 텍스트 레벨 증류의 정식화. 오늘날 실무 증류의 원형.
+[^seqkd]: Yoon Kim, Alexander M. Rush, 「Sequence-Level Knowledge Distillation」, EMNLP 2016, pp. 1317–1327. — teacher가 *생성한 시퀀스(텍스트)* 로 student를 학습시키는 텍스트 레벨 증류의 정식화. 오늘날 실무 증류의 원형. <https://aclanthology.org/D16-1139/>
 
-[^collapse]: Ilia Shumailov 외, 「AI models collapse when trained on recursively generated data」, *Nature*, 2024 (2023 프리프린트 "The Curse of Recursion", arXiv:2305.17493 기반). — 생성 데이터를 재귀적으로 학습하면 꼬리가 깎여 분포가 중앙으로 수축·붕괴. §10의 근거. ※ 깨끗한 데이터를 *누적*하면 붕괴가 완화된다는 후속 연구(예: arXiv:2404.01413)도 있다.
+[^collapse]: Ilia Shumailov 외, 「AI models collapse when trained on recursively generated data」, *Nature*, 2024 (2023 프리프린트 "The Curse of Recursion", arXiv:2305.17493 기반). — 생성 데이터를 재귀적으로 학습하면 꼬리가 깎여 분포가 중앙으로 수축·붕괴. §10의 근거. ※ 깨끗한 데이터를 *누적*하면 붕괴가 완화된다는 후속 연구도 있다. — 원문(프리프린트) <https://arxiv.org/abs/2305.17493> · 완화 후속 <https://arxiv.org/abs/2404.01413>
 
-[^kl]: Thomas Minka, 「Divergence Measures and Message Passing」, Microsoft Research Technical Report MSR-TR-2005-173, 2005. — *forward KL(mass-covering)* 대 *reverse KL(mode-seeking)* 의 상반된 거동. §4의 '환각형 vs 탈락형' 실패 모드의 이론적 근거.
+[^kl]: Thomas Minka, 「Divergence Measures and Message Passing」, Microsoft Research Technical Report MSR-TR-2005-173, 2005. — *forward KL(mass-covering)* 대 *reverse KL(mode-seeking)* 의 상반된 거동. §4의 '환각형 vs 탈락형' 실패 모드의 이론적 근거. <https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-2005-173.pdf>
 
-[^r1]: DeepSeek-AI, 「DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning」, 2025. arXiv:2501.12948. — R1과 소형 증류판(R1-Distill-Qwen/Llama) 공개. 이 글 도입부 사례의 출처.
+[^r1]: DeepSeek-AI, 「DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning」, 2025. arXiv:2501.12948. — R1과 소형 증류판(R1-Distill-Qwen/Llama) 공개. 이 글 도입부 사례의 출처. <https://arxiv.org/abs/2501.12948>
