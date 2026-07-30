@@ -94,7 +94,7 @@ result = await chat.chatWithFiles("이 영수증 분석해줘", [file])
 
 ---
 
-## 3. 실제 사례 — DTAF (2~3주 → 1~2일)
+## 3. 실제 사례 — DTAF
 
 300페이지 PDF를 번역하는 시스템 DTAF는 V1(LangGraph 단일 루프)로 기능을 검증했습니다. 기능은 됐지만 벤치마크에서 품질 속성이 무너졌죠.
 
