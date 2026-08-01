@@ -58,6 +58,22 @@ Astro 블로그(`/blog`), GitHub Pages 배포. LLM/에이전트 이론 시리즈
 
 ⚠️ **미해결**: 로컬에 mermaid 파서가 없다(jsdom 미설치, ESM import 실패 2회). 문법 검증은 **빌드의 블록 수 대조**(소스 N개 → 렌더 `class="mermaid"` N개)로 대신한다. 새 mermaid는 이 글에 이미 있는 **검증된 문법**(`subgraph X ["…"]`, `== "…" ==>`, `-. "…" .->`)을 따를 것 — `direction`·`<-->`·파이프 라벨은 미검증.
 
+### ★ 2026-08-01 (3) — 발표 슬라이드 신설 + llm-agents 도해 7개
+
+**(a) `note/slides/llm-agents/` 신설** — 블로그 원문(61k자)을 Marp 덱 **84장**으로. HTML·PDF·PPTX 빌드.
+  - `deck.md`만 편집. `npm run build|pdf|pptx|all`. 상세는 그 폴더 `README.md`.
+  - 🔺 **Marp 함정 넷**(전부 실제로 밟았다): ① mermaid 미지원 — 플러그인은 HTML만 안전하고 PDF·PPTX는 렌더 전에 캡처돼 빈 칸이 된다 → **빌드 때 SVG로 굽는다**(`build.mjs`). ② **`data:image/svg+xml` 인라인 불가** — markdown-it이 XSS 방지로 차단(png/jpeg/gif/webp만) → 이미지 7개가 통째로 텍스트로 샜다. **`build/`를 자족 폴더**로 두는 것으로 해결(HTML은 폴더째, PDF·PPTX는 파일 하나). ③ **이모지가 jsdelivr CDN**에서 온다 → `.marprc.yml`로 끔. ④ **`--no-stdin` 없으면 marp가 멈춘다**(원인 모른 채 두 번 행 걸렸다).
+  - Chromium 재다운로드 없이 설치된 Chrome 사용(`PUPPETEER_EXECUTABLE_PATH`·`CHROME_PATH`).
+  - **원문에 없는 발표용 신규 내용**: 용어(토큰 어원·BPE·생성vs소모 / 컨텍스트 3구분) · 모델 구조 도해 · MoE 메모리 경제(조달 가능성 기준) · 지식 vs 깊이.
+  - 세로형 TD 다이어그램은 16:9에서 글자가 뭉개진다 → **LR로 다시 그릴 것.**
+
+**(b) mermaid 문법 검사기** `blog/scripts/check-mermaid.mjs` — **빌드는 mermaid 오류를 못 잡는다**(브라우저에서만 깨진다). jsdom 없이 mermaid의 flowchart 청크에서 파서만 직접 물렸다(`parser.parser.yy = db` 연결 필수). sanitize 단계는 DOM이 필요해 건너뛰므로 **'실패 = 확실히 깨짐'**으로만 쓴다 — 괄호 미닫힘·subgraph 미종료는 잡고 `==!>` 류 오타는 못 잡는다.
+
+**(c) 블로그 도해 7개** (`8ea0516`) — pillar §4·§7.1·§7.2·§9 + 시리즈 2·3·4·5편.
+  - ⚠️ **핵심 교정**: 기존 MoE 도해가 **모델에 층이 하나뿐인 것처럼** 읽혔다. `public/llm-agents/{model-layers,moe-block}.svg` 두 장을 **MoE 설명 앞에** 넣어 끊었다. 생성기 `scripts/gen-llm-agents-svg.py`(다크모드 클래스 방식, 헤드리스 크롬으로 실제 확인).
+  - 🔺 **SVG 함정**: `<style>`에 `text{fill:…}`을 주면 **개별 `fill=` 속성을 전부 덮어쓴다**(CSS 규칙 > presentation attribute). 강조색이 통째로 검게 나왔다 — 거기엔 `font-family`만 둘 것.
+  - 3편은 7.1을 **세 층(모델 능력 / 루프 / MCP 배선)**으로 갈라 재작성 + MCP 표 + 각주.
+
 ### ★ 2026-07-31 세션 — 신규 단독 글 「버전은 오르는데…」 발행 → **비공개 전환**(논문 실험 연동)
 
 - 사용자 초안(`~/ws/note/prior_overfit_blog.md`, prior/overfit 두 축)을 **블로그 단독 글로 재편·발행**. `content/posts/2026-07-31-version-up-performance-down.md`, URL `/blog/version-up-performance-down/`, **series 없음**(홈 '글' 섹션). date=07-31 **즉시 공개**.
