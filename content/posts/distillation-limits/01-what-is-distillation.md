@@ -42,7 +42,7 @@ series_order: 1
 
 이른바 **pre-training distillation** 이다. teacher(큰 모델)의 next-token 확률 분포를 student가 KL divergence(Kullback-Leibler divergence, 두 확률분포가 얼마나 다른지를 재는 척도)로 따라가도록 학습시킨다. 하드 라벨(다음 토큰 one-hot) 대신 teacher의 soft distribution을 맞추는 것이다.
 
-쉽게 말하면, 하드 라벨은 "정답은 A다"라는 딱 한 점짜리 신호이고, soft label은 "A가 0.7, B가 0.2, C가 0.05…"라는 **분포 전체의 정보** 를 주는 것이다. 학습 신호의 정보 밀도가 근본적으로 다르다. 그래서 같은 데이터로도 student가 더 빨리, 더 좋게 수렴한다. 소형 모델이 크기 대비 강한 이유가 여기에 있다. 단, 이 방식은 teacher의 내부 logits에 접근해야 하므로 **자체 프론티어 모델을 보유한 곳** 에서 주로 나온다.
+쉽게 말하면, 하드 라벨은 "정답은 A다"라는 딱 한 점짜리 신호이고, soft label은 "A가 0.7, B가 0.2, C가 0.05…"라는 **분포 전체의 정보** 를 주는 것이다. 학습 신호의 정보 밀도가 근본적으로 다르다. 그래서 같은 데이터로도 student가 더 빨리, 더 좋게 수렴한다. 소형 모델이 크기 대비 강한 이유가 여기에 있다. 단, 이 방식은 teacher의 내부 logits에 접근해야 한다. 그래서 **logit에 접근할 수 있는 경우** — 자체 모델을 보유했거나, **오픈웨이트 teacher를 쓰는 경우**(Qwen·Llama를 teacher로 삼는 사례가 실제로 많다) — 로 한정된다. 막히는 건 **폐쇄형 API를 teacher로 쓸 때**다. 거기서는 logits를 안 내주므로 아래의 sequence-level 증류로 갈 수밖에 없다.
 
 ### 파인튜닝(SFT, Supervised Fine-Tuning, 지도 미세조정) 단계 — 실무에서 가장 흔하다
 
