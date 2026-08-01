@@ -24,7 +24,7 @@ AI가 코드를 분당 수백 줄 쏟아냅니다. 그런데 — **그걸 다 �
 - **변경 영향 범위를 모른다** → "이거 고치면 뭐가 깨지지?"
 - **AI에게 변경을 못 시킨다** → 요구사항이 코드에 *암묵적으로 묻혀* 있어 전달이 안 된다.
 
-게다가 코드는 **한 번 쓰이고 최소 3~10번 읽힙니다**(버그 수정·기능 추가·리뷰·온보딩·장애 대응). 그래서 *빨리 막 쓰면* 읽기 비용이 폭발합니다.
+게다가 코드는 **한 번 쓰이고 최소 3\~10번 읽힙니다**(버그 수정·기능 추가·리뷰·온보딩·장애 대응). 그래서 *빨리 막 쓰면* 읽기 비용이 폭발합니다.
 
 | 방식 | 작성 비용 | 읽기 비용(×5회) | 총 비용 |
 |---|---|---|---|
@@ -108,9 +108,7 @@ flowchart LR
 
 ---
 
-## 미주 (참고 자료 및 링크)
-
-[^naur]: **[1차 문헌]** Peter Naur, 「Programming as Theory Building」, *Microprocessing and Microprogramming* 15(5), 1985, pp. 253–261 (저서 *Computing: A Human Activity*, 1992에 재수록). — 프로그래밍의 본질은 코드(텍스트)가 아니라 문제에 대한 *이론*을 세우는 일이며, 코드는 그 이론의 파생물이라는 논지. '코드는 소모품, 설계(이론)는 자산'의 이론적 뿌리. <https://pages.cs.wisc.edu/~remzi/Naur.pdf>
+[^naur]: **[1차 문헌]** Peter Naur, 「Programming as Theory Building」, *Microprocessing and Microprogramming* 15(5), 1985, pp. 253–261 (저서 *Computing: A Human Activity*, 1992에 재수록). — 프로그래밍의 본질은 코드(텍스트)가 아니라 문제에 대한 *이론*을 세우는 일이며, 코드는 그 이론의 파생물이라는 논지. '코드는 소모품, 설계(이론)는 자산'의 이론적 뿌리. <https://pages.cs.wisc.edu/\~remzi/Naur.pdf>
 
 ---
 

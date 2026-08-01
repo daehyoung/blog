@@ -119,8 +119,6 @@ AI는 테스트를 빠르게 짜지만 두 최빈값 함정에 빠집니다 — 
 
 ---
 
-## 미주 (참고 자료 및 링크)
-
 [^meszaros]: **[표준 문헌]** Gerard Meszaros, *xUnit Test Patterns: Refactoring Test Code*, Addison-Wesley, 2007. — 테스트 더블(Dummy·Stub·Spy·Mock·Fake)의 표준 분류와 xUnit 테스트 패턴의 정본.
 
 [^first]: **[표준 문헌]** Robert C. Martin, *Clean Code: A Handbook of Agile Software Craftsmanship*, Prentice Hall, 2008. — 좋은 유닛테스트의 다섯 속성 **FIRST**(Fast·Isolated·Repeatable·Self-validating·Timely)가 정리된 곳.

@@ -26,7 +26,7 @@ series_order: 5
 
 1. **시켜 본다**: [4편의 지침](/blog/teaching-swe-to-models/04-work-instructions)대로 산출물을 생성시킨다.
 2. **반복되는 실수를 모은다**: 여러 번 돌리며 *자꾸 같은 방식으로 틀리는* 패턴을 추린다(한 번은 노이즈, 반복은 신호).
-3. **검문 항목으로 뒤집는다**: 각 실수를 "~했는가?"라는 확인 질문으로 바꾼다.
+3. **검문 항목으로 뒤집는다**: 각 실수를 "\~했는가?"라는 확인 질문으로 바꾼다.
 
 유스케이스 단계에서 이 과정을 돌리면 이렇게 도출됩니다.
 
@@ -81,8 +81,6 @@ series_order: 5
 > **시리즈 정리** — 모델이 평범하게 짜는 건 **평균회귀**이고([1편](/blog/teaching-swe-to-models/01-why-teach-engineering)), 이 편향은 형용사가 아니라 **구조적 규율**로만 밀립니다. 그 규율을 (워크플로우 + 작업 지침서 + 검증 체크리스트) **3층으로 코드화**하고([2편](/blog/teaching-swe-to-models/02-how-to-teach-big-picture)), 단계별로 *필요한 조각만* 주입해 집중을 지킵니다. 워크플로우가 순서를([3편](/blog/teaching-swe-to-models/03-workflow)), 지침서가 각 단계의 허용/금지를([4편](/blog/teaching-swe-to-models/04-work-instructions)), 체크리스트가 산출물 게이트를(이번 편) 맡습니다. **그럼에도 남는 편향은 사람이 막습니다.** 모델에게 SW 엔지니어링을 가르치는 일의 끝은, 모델을 사람처럼 만드는 게 아니라 — **사람의 판단이 어디서 비대체적인지를 또렷이 아는 것**입니다.
 
 ---
-
-## 미주 (참고 자료 및 링크)
 
 [^gawande]: **[일반 문헌]** Atul Gawande, *The Checklist Manifesto: How to Get Things Right*, Metropolitan Books, 2009. — 의료·항공 등 복잡·고위험 작업에서 '알고도 빠뜨리는' 실수를 체크리스트가 구조적으로 막아 준다는 사례 연구. 산출물 검증 체크리스트의 논거.
 ---

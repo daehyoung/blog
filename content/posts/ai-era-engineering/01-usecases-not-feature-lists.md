@@ -342,9 +342,7 @@ LLM은 구현을 가져갔습니다. 그래서 명세가 사람에게 남은 마
 
 ---
 
-## 미주 (참고 자료 및 링크)
-
-[^naur]: **[1차 문헌]** Peter Naur, 「Programming as Theory Building」, *Microprocessing and Microprogramming* 15(5), 1985, pp. 253–261. — 프로그래밍의 본질은 코드가 아니라 문제에 대한 *이론*을 세우는 일이며, 코드는 그 이론의 그림자라는 논지. <https://pages.cs.wisc.edu/~remzi/Naur.pdf>
+[^naur]: **[1차 문헌]** Peter Naur, 「Programming as Theory Building」, *Microprocessing and Microprogramming* 15(5), 1985, pp. 253–261. — 프로그래밍의 본질은 코드가 아니라 문제에 대한 *이론*을 세우는 일이며, 코드는 그 이론의 그림자라는 논지. <https://pages.cs.wisc.edu/\~remzi/Naur.pdf>
 
 [^brooks]: **[1차 문헌]** Frederick P. Brooks, Jr., 「No Silver Bullet—Essence and Accident in Software Engineering」, *IEEE Computer* 20(4), 1987, pp. 10–19. — 소프트웨어 복잡성을 *우발적*·*본질적*으로 구분하고, 어떤 단일 기술도 '은탄환'이 될 수 없다고 주장. <https://www.cs.unc.edu/techreports/86-020.pdf>
 

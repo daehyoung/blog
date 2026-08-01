@@ -115,8 +115,6 @@ series_order: 4
 
 ---
 
-## 미주 (참고 자료 및 링크)
-
 [^usecase]: **[표준 문헌]** 유스케이스 방법론의 표준 저작 — Ivar Jacobson, M. Christerson, P. Jonsson, G. Övergaard, *Object-Oriented Software Engineering: A Use Case Driven Approach*, Addison-Wesley, 1992 (유스케이스 개념의 원류) · Kurt Bittner & Ian Spence, *Use Case Modeling*, Addison-Wesley, 2002 · Alistair Cockburn, *Writing Effective Use Cases*, Addison-Wesley, 2001. — 유스케이스는 기능 나열이 아니라 *주 흐름·확장(예외)·선행/사후 조건*을 갖춘 목표 지향 시나리오라는 표준 구조.
 
 ---

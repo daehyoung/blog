@@ -101,8 +101,6 @@ flowchart TB
 
 ---
 
-## 미주 (참고 자료 및 링크)
-
 [^agile]: **[1차 선언문]** Kent Beck 외, 「Manifesto for Agile Software Development」, 2001. — "포괄적 문서보다 작동하는 소프트웨어를" 등 네 가지 가치. *문서를 버리라*가 아니라 문서**보다** 작동을 우선하라는 선언. <https://agilemanifesto.org/>
 
 [^spiral]: **[1차 문헌]** Barry W. Boehm, 「A Spiral Model of Software Development and Enhancement」, *IEEE Computer* 21(5), 1988, pp. 61–72. — 위험(risk) 주도로 반복마다 위험을 먼저 해소하고, 각 바퀴가 산출물·검증을 갖는 나선형 개발 모델. doi:10.1109/2.59

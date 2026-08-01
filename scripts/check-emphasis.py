@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""볼드·이탤릭이 '닫히지 않는' 자리를 찾아낸다. 한국어 글에서 자주 밟는 함정이다.
+"""마크다운 함정 검사 — ①닫히지 않는 볼드·이탤릭 ②이스케이프 안 된 물결표.
+
+한국어 글에서 반복해서 밟은 두 함정이다. 둘 다 빌드가 잡아주지 않는다.
 
     python3 scripts/check-emphasis.py                 # content/posts 전체
     python3 scripts/check-emphasis.py <파일…>
@@ -63,6 +65,29 @@ def scan(path: Path):
     return hits
 
 
+def scan_tilde(path: Path):
+    """이스케이프 안 된 물결표. GFM은 **물결표 하나로도** 취소선을 만든다.
+    `2~3주 → 1~2일` 이 `2<del>3주 → 1</del>2일` 로 깨진 적이 있다.
+    범위·근사 표기로 쓸 때는 `\~` 로 적어야 한다."""
+    hits = []
+    fence = False
+    for no, line in enumerate(path.read_text(encoding="utf-8").split("\n"), 1):
+        if line.lstrip().startswith("```"):
+            fence = not fence
+            continue
+        if fence or "~" not in line:
+            continue
+        tick = 0
+        prev = ""
+        for i, c in enumerate(line):
+            if c == "`":
+                tick += 1
+            if c == "~" and tick % 2 == 0 and prev != "\\":
+                hits.append((no, line[max(0, i - 20):i + 12]))
+            prev = c
+    return hits
+
+
 def main() -> int:
     args = sys.argv[1:]
     files = [Path(a) for a in args] if args else sorted((ROOT / "content" / "posts").rglob("*.md"))
@@ -70,6 +95,12 @@ def main() -> int:
 
     total = 0
     for f in files:
+        tl = scan_tilde(f)
+        if tl:
+            total += len(tl)
+            print(f"\n✗ {f} — 이스케이프 안 된 물결표 (GFM 취소선으로 깨질 수 있다)")
+            for no, ctx in tl:
+                print(f"    {no}: …{ctx}…   → `\\~` 로 적을 것")
         hits = scan(f)
         if not hits:
             continue
@@ -79,10 +110,10 @@ def main() -> int:
             print(f"    {no}: …{ctx}…   ({mark} 가 닫히지 않는다)")
 
     if total:
-        print(f"\n✗ 닫히지 않는 강조 {total}곳. 위 독스트링의 ①②③ 중 하나로 고칠 것.")
+        print(f"\n✗ 마크다운 함정 {total}곳.")
         print("  (모델 출력 원문을 그대로 인용한 자리라면 고치지 말고 그대로 둘 것 — 기록이다.)")
         return 1
-    print(f"✓ {len(files)}개 파일, 닫히지 않는 강조 없음")
+    print(f"✓ {len(files)}개 파일 — 닫히지 않는 강조·이스케이프 안 된 물결표 없음")
     return 0
 
 
