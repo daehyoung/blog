@@ -19,9 +19,9 @@ source_sections: ["7.6", "7.7"]
 
 ## 1. 근거 — "더 큰 모델"과 "더 많이 생각하기"는 교환 가능하다
 
-- **Snell et al.(2024)**: 작은 모델에 추론 시점 연산(test-time compute)을 최적 배분하면, 훨씬 적은 총연산으로 **14배 큰 모델에 맞먹거나 능가**할 수 있음을 MATH 벤치마크에서 보였다.
-- **HuggingFace 재현(2024)**: 3B 규모의 Llama 3 모델이 복잡한 수학 문제에서 70B 버전을 능가했고, 더 작은 1B 모델조차 **8B에 필적하는 수준까지** 올라왔다.
-- **도구를 결합하면 더 분명**: 도구 통합 추론(Tool-Integrated Reasoning) 계열 연구는 암기 부담이 큰 검증 단계를 코드 인터프리터 같은 외부 도구에 위임해, **1B 모델이 8B 모델을 앞서게** 했다.
+- **Snell et al.(2024)**[^snell]: 작은 모델에 추론 시점 연산(test-time compute)을 최적 배분하면, 훨씬 적은 총연산으로 **14배 큰 모델에 맞먹거나 능가**할 수 있음을 MATH 벤치마크에서 보였다.
+- **HuggingFace 재현(2024)**[^hf]: 3B 규모의 Llama 3 모델이 복잡한 수학 문제에서 70B 버전을 능가했고, 더 작은 1B 모델조차 **8B에 필적하는 수준까지** 올라왔다.
+- **도구를 결합하면 더 분명**[^t1]: 암기 부담이 큰 검증 단계를 코드 인터프리터 같은 외부 도구에 위임해, **1B 모델이 8B 모델을 앞서게** 했다.
 
 ---
 
@@ -97,6 +97,12 @@ flowchart LR
 > **대전제 — 추론의 하한값.** 이 모든 건 **모델이 최소한의 추론 하한선을 넘을 때만** 성립합니다. 루프는 *이미 가진* 능력을 증폭할 뿐, 바닥이 0이면 못 메웁니다. 하한을 못 넘으면 결국 더 큰/추론 모델로 올라가 비용·시간을 감수해야 합니다 — "작은/Dense + 좋은 루프"는 하한을 넘는 모델 위에서의 최적화입니다.
 
 ---
+
+[^snell]: Snell, Lee, Xu, Kumar (2024), 「Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters」, arXiv:2408.03314. — compute-optimal 배분으로 **비자명한 성공률을 이미 가진** 작은 모델이 FLOPs 동률에서 14배 큰 모델을 능가할 수 있음. *전제 조건이 핵심*이라, 아래 §3의 "기본기가 있어야 증폭된다"의 직접 근거다. <https://arxiv.org/abs/2408.03314>
+
+[^hf]: Hugging Face (2024), 「Scaling Test-Time Compute」 오픈 재현 블로그. — 3B가 70B를 능가하고 1B가 8B에 필적한 수학 재현 사례. ⚠️ 원문은 1B가 8B를 *앞섰다*기보다 그 수준에 **근접**했다고 서술한다. <https://huggingface.co/spaces/HuggingFaceH4/blogpost-scaling-test-time-compute>
+
+[^t1]: Kang, Jeong, Cho (2025), 「T1: Tool-integrated Self-verification for Test-time Compute Scaling in Small Language Models」, arXiv:2504.04718. — 외부 도구로 후보를 먼저 걸러내고 작은 모델이 최종 검증하는 2단계 프레임워크. MATH에서 **Llama-3.2 1B가 Llama-3.1 8B를 앞섰다.** <https://arxiv.org/abs/2504.04718>
 
 #### 📚 시리즈 내비게이션
 

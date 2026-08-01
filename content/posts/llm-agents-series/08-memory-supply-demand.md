@@ -204,8 +204,6 @@ D램 출하의 57%가 데이터센터로 (2026)
 
 ---
 
-## 미주 (참고 자료 및 링크)
-
 [^1]: **[2차·분석]** IBK투자증권, 「Shortage! Shortage! Shortage!」 반도체 산업 보고서, 2025.12.31. — 2026년 수요 비트 증가율 23.1%, 응용처별 증가율(서버 41.2%, PC 8.5%, 모바일 6.3%), 3사 CAPEX 및 비트 증가율, 서버 비중 전망(2026년 54.3% → 2028년 60%). <https://m.ibks.com/iko/IKO01/download.do?seq=6714&menuCode=IKO010301&attatchCd=ATTATCH1>
 
 [^2]: **[1차]** TrendForce, FMS 2024 발표자료 (Avril Wu), 2024.8. — 2024/2025년 공급 비트 증가율(16%/18%), 수요 비트 증가율(17%/23%). <https://files.futurememorystorage.com/proceedings/2024/20240806_BMKT-101-1_WU.pdf>
