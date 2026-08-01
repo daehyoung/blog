@@ -28,6 +28,10 @@ src/
   pages/[...slug].astro         # 글 페이지 (byline 자동 출력)
   pages/tags/                   # 태그 목록 + 태그별 필터
   content.config.ts             # 컬렉션 스키마 (frontmatter)
+public/                         # 그대로 서빙되는 파일. URL = /blog/<경로>
+  <슬러그>/*.svg                #   글에 넣는 도해
+  <슬러그>/*.md                 #   글에서 링크하는 첨부 원문
+scripts/                        # 도해 생성기 등 (빌드에 안 들어감)
 social/                         # 배포 초안(LinkedIn 등). 빌드 안 됨
 ```
 
@@ -76,6 +80,10 @@ social/                         # 배포 초안(LinkedIn 등). 빌드 안 됨
 - **`_` 접두사 파일은 빌드 제외**(`_map.md` 등). 스키마: `glob({ pattern: ['**/*.md', '!**/_*.md'] })`.
 - **코드블록**: shiki 듀얼 테마(`defaultColor:false`) + CSS `data-theme`로 라이트/다크 전환.
 - **다이어그램**: ` ```mermaid ` 블록은 `astro-mermaid`가 렌더(다크모드 자동 연동).
+- **이미지**: 도해(SVG)와 첨부 파일은 **`public/<슬러그>/`** 에 둔다. 참조는 `/blog/<슬러그>/x.svg`.
+  - SVG를 `public/`에 두는 이유: ①벡터라 Astro 이미지 최적화가 의미 없고 ②**다크모드용 `prefers-color-scheme` CSS가 SVG 안에 들어 있어서**, `<img>`로 자체 문서로 로드돼야 동작한다(인라인·파이프라인 경유 시 깨질 수 있음).
+  - 사진·스크린샷 같은 **래스터**를 넣게 되면 그때는 `src/assets/`에 두고 마크다운에서 상대경로로 참조한다(Astro가 최적화·해시 처리). 루트 `assets/`는 쓰지 않는다(빈 스캐폴드였고 제거했다).
+  - 곡선처럼 **계산으로 그린 도해는 생성 스크립트를 `scripts/`에 남긴다** — 점 좌표가 수백 개라 손으로 못 고친다. 예: `scripts/gen-distillation-svg.py`.
 - **이메일**: `luxsoft.kr@gmail.com`. 템플릿에서 `data-user`/`data-domain`로 난독화 → 생주소를 정적 HTML에 박지 말 것.
 - **byline**: 작성일·작성자(조대형, 클로드)는 `[...slug].astro`가 자동 출력. 본문에 따로 적지 않는다.
 - **예약 발행**: 모든 콘텐츠 쿼리는 `getPublishedPosts()`(`src/lib/posts.ts`)를 쓴다 — KST 기준 `date ≤ 오늘`만 공개. 새 글 `date`를 미래로 적고 푸시하면 일일 cron이 그날 자동 공개. **새 페이지 쿼리도 `getCollection` 직접 말고 이 헬퍼를 쓸 것.**
