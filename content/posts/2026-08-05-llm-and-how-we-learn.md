@@ -1,6 +1,7 @@
 ---
 title: "LLM을 이해하는 가장 좋은 방법은, 내가 어떻게 배우는지 아는 것이다"
 date: 2026-08-05
+draft: true
 tags: [학습, 사고법, LLM, 인식론, 독서, 에세이]
 canonical_url: https://daehyoung.github.io/blog/llm-and-how-we-learn/
 license: CC BY-NC 4.0
