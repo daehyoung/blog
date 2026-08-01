@@ -83,7 +83,10 @@ social/                         # 배포 초안(LinkedIn 등). 빌드 안 됨
   - ⚠️ **빌드는 mermaid 문법 오류를 못 잡는다** — 블록을 그대로 통과시켜 브라우저에서만 깨진다. 새 블록을 넣으면 반드시 `node scripts/check-mermaid.mjs <파일>` 로 검증한다.
   - 이 검사기는 **flowchart 문법 단계까지만** 본다(그다음 sanitize는 DOM이 필요해 건너뛴다). *실패 = 확실히 깨짐*으로 쓰고, 통과했다고 렌더를 보장하진 않는다 — 배포 후 눈으로 한 번 확인.
 - **이미지**: 도해(SVG)와 첨부 파일은 **`public/<슬러그>/`** 에 둔다. 참조는 `/blog/<슬러그>/x.svg`.
-  - SVG를 `public/`에 두는 이유: ①벡터라 Astro 이미지 최적화가 의미 없고 ②**다크모드용 `prefers-color-scheme` CSS가 SVG 안에 들어 있어서**, `<img>`로 자체 문서로 로드돼야 동작한다(인라인·파이프라인 경유 시 깨질 수 있음).
+  - SVG를 `public/`에 두는 이유: 벡터라 Astro 이미지 최적화가 의미 없고, `<img>`로 자체 문서로 로드돼야 SVG 안의 CSS가 동작한다.
+  - ⚠️ **`prefers-color-scheme`으로 다크모드를 처리하지 말 것.** 이 사이트의 테마는 OS 설정이 아니라 **`<html data-theme>` 수동 토글**(localStorage, `Layout.astro`)이다. `<img>`로 불린 SVG는 별개 문서라 그 `data-theme`을 볼 수 없고 OS 설정만 안다 → *"OS는 다크인데 사이트는 라이트"* 에서 **도해만 뒤집힌다.** 선 그림은 티가 덜 나지만 **면이 큰 도해는 검은 박스**가 된다(실제로 겪었다).
+  - 대신 **중립 팔레트**로 그린다: 면은 전부 **반투명**(`fill-opacity`)이라 배경이 비쳐 보이게 하고, 글자·선은 양쪽 배경에서 대비 3:1 이상인 중간 톤(`#6b7280`·`#8a99ad`)과 강조색(`#3b82f6`·`#dc5a47`)만 쓴다. 예: `scripts/gen-llm-agents-svg.py`.
+  - `marker`의 `fill="currentColor"`는 `color`가 없으면 **검정으로 떨어진다** — 색을 명시할 것.
   - 사진·스크린샷 같은 **래스터**를 넣게 되면 그때는 `src/assets/`에 두고 마크다운에서 상대경로로 참조한다(Astro가 최적화·해시 처리). 루트 `assets/`는 쓰지 않는다(빈 스캐폴드였고 제거했다).
   - 곡선처럼 **계산으로 그린 도해는 생성 스크립트를 `scripts/`에 남긴다** — 점 좌표가 수백 개라 손으로 못 고친다. 예: `scripts/gen-distillation-svg.py`.
 - **이메일**: `luxsoft.kr@gmail.com`. 템플릿에서 `data-user`/`data-domain`로 난독화 → 생주소를 정적 HTML에 박지 말 것.

@@ -22,46 +22,41 @@ OUT.mkdir(parents=True, exist_ok=True)
 FONT = "system-ui,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif"
 
 STYLE = f"""
-    :root {{ color-scheme: light dark; }}
     text   {{ font-family: {FONT}; }}
-    .lbl   {{ fill: #1f2937; font-size: 15px; text-anchor: middle; }}
-    .lblb  {{ fill: #1f2937; font-size: 16px; font-weight: 700; text-anchor: middle; }}
-    .mut   {{ fill: #6b7280; font-size: 14px; text-anchor: middle; }}
-    .accent{{ fill: #1d4ed8; font-size: 16px; font-weight: 700; text-anchor: middle; }}
-    .warn  {{ fill: #b91c1c; font-size: 15px; font-weight: 700; text-anchor: middle; }}
-    .tag   {{ fill: #6b7280; font-size: 13px; }}
-    .tagOn {{ fill: #1d4ed8; font-size: 13px; font-weight: 700; }}
-    .node  {{ fill: #ffffff; stroke: #2563eb; stroke-width: 2; }}
-    .nodeQ {{ fill: #eef2f7; stroke: #2563eb; stroke-width: 2; }}
-    .nodeA {{ fill: #dbeafe; stroke: #2563eb; stroke-width: 2; }}
-    .nodeOff {{ fill: #ffffff; stroke: #9ca3af; stroke-width: 1.5; }}
-    .wire  {{ stroke: #9ca3af; stroke-width: 1; opacity: .55; }}
-    .wireD {{ stroke: #9ca3af; stroke-width: 1; opacity: .4; stroke-dasharray: 4 4; }}
-    .wireOn{{ stroke: #2563eb; stroke-width: 2.4; }}
-    .wireOff{{ stroke: #9ca3af; stroke-width: 1; opacity: .6; stroke-dasharray: 4 4; }}
-    .panel {{ fill: #f5f8fd; stroke: #bfd3ee; stroke-width: 2; }}
-    .panel2{{ fill: #fbfcfe; stroke: #9ca3af; stroke-width: 2; }}
-    .panel3{{ fill: #fbfcfe; stroke: #2563eb; stroke-width: 2; }}
-    .router{{ fill: #ffffff; stroke: #b91c1c; stroke-width: 2; }}
-    .flow  {{ stroke: #b91c1c; stroke-width: 2; opacity: .85; fill: none; }}
-    @media (prefers-color-scheme: dark) {{
-      .lbl, .lblb {{ fill: #e5e7eb; }}
-      .mut, .tag  {{ fill: #9ca3af; }}
-      .accent, .tagOn {{ fill: #93c5fd; }}
-      .warn  {{ fill: #fca5a5; }}
-      .node  {{ fill: #111827; stroke: #60a5fa; }}
-      .nodeQ {{ fill: #1f2937; stroke: #60a5fa; }}
-      .nodeA {{ fill: #1e3a5f; stroke: #60a5fa; }}
-      .nodeOff {{ fill: #111827; stroke: #6b7280; }}
-      .wire, .wireD, .wireOff {{ stroke: #6b7280; }}
-      .wireOn {{ stroke: #60a5fa; }}
-      .panel  {{ fill: #111a27; stroke: #334155; }}
-      .panel2 {{ fill: #0f1620; stroke: #4b5563; }}
-      .panel3 {{ fill: #0f1620; stroke: #60a5fa; }}
-      .router {{ fill: #111827; stroke: #fca5a5; }}
-      .flow   {{ stroke: #fca5a5; }}
-    }}
+    .lbl   {{ fill: #6b7280; font-size: 15px; text-anchor: middle; }}
+    .lblb  {{ fill: #6b7280; font-size: 16px; font-weight: 700; text-anchor: middle; }}
+    .mut   {{ fill: #8a929e; font-size: 14px; text-anchor: middle; }}
+    .accent{{ fill: #3b82f6; font-size: 16px; font-weight: 700; text-anchor: middle; }}
+    .warn  {{ fill: #dc5a47; font-size: 15px; font-weight: 700; text-anchor: middle; }}
+    .tag   {{ fill: #8a929e; font-size: 13px; }}
+    .tagOn {{ fill: #3b82f6; font-size: 13px; font-weight: 700; }}
+    .node  {{ fill: #8a99ad; fill-opacity: .10; stroke: #4a90d9; stroke-width: 2; }}
+    .nodeQ {{ fill: #8a99ad; fill-opacity: .22; stroke: #4a90d9; stroke-width: 2; }}
+    .nodeA {{ fill: #3b82f6; fill-opacity: .28; stroke: #3b82f6; stroke-width: 2; }}
+    .nodeOff {{ fill: none; stroke: #98a2b0; stroke-width: 1.5; }}
+    .wire  {{ stroke: #8a99ad; stroke-width: 1; opacity: .5; }}
+    .wireD {{ stroke: #8a99ad; stroke-width: 1; opacity: .38; stroke-dasharray: 4 4; }}
+    .wireOn{{ stroke: #3b82f6; stroke-width: 2.4; }}
+    .wireOff{{ stroke: #98a2b0; stroke-width: 1; opacity: .55; stroke-dasharray: 4 4; }}
+    .panel {{ fill: #8a99ad; fill-opacity: .09; stroke: #8a99ad; stroke-opacity: .5; stroke-width: 2; }}
+    .panel2{{ fill: #8a99ad; fill-opacity: .05; stroke: #98a2b0; stroke-opacity: .7; stroke-width: 2; }}
+    .panel3{{ fill: #3b82f6; fill-opacity: .05; stroke: #4a90d9; stroke-width: 2; }}
+    .router{{ fill: #dc5a47; fill-opacity: .12; stroke: #dc5a47; stroke-width: 2; }}
+    .flow  {{ stroke: #dc5a47; stroke-width: 2; opacity: .85; fill: none; }}
 """
+
+# ⚠️ 다크모드를 매체 쿼리로 처리하지 않는 이유
+#
+# 이 블로그의 테마는 OS 설정이 아니라 <html data-theme>를 손으로 토글한다
+# (Layout.astro, localStorage). 그런데 <img>로 불린 SVG는 별개 문서라
+# 그 data-theme를 볼 수 없고 prefers-color-scheme(=OS)만 안다.
+# 그래서 "OS는 다크인데 사이트는 라이트"에서 도해만 까맣게 뒤집힌다.
+# 선 그림은 티가 덜 나지만 이 도해들처럼 **면이 큰 그림은 그대로 검은 박스**가 된다.
+#
+# 결론: 매체 쿼리를 쓰지 말고, 어느 배경에서나 읽히는 중립 팔레트로 그린다.
+#   - 면은 전부 반투명(fill-opacity) — 배경색이 비쳐 보이므로 양쪽에서 어울린다
+#   - 글자·선은 중간 톤(#6b7280 / #8a99ad)과 강조색(#3b82f6 / #dc5a47)만 쓴다
+#     (흰 바탕·어두운 바탕 모두 대비 3:1 이상)
 
 
 def head(w, h, extra=""):
@@ -90,7 +85,7 @@ def model_layers():
     W, H, cy = 1160, 500, 250
     s = [head(W, H,
               '<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" '
-              'markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>'
+              'markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc5a47"/>'
               '</marker></defs>')]
     xs = [90, 250, 400, 550, 700, 850, 1010]
     counts = [4, 9, 9, 0, 9, 9, 5]
@@ -118,8 +113,7 @@ def model_layers():
     s.append('<text x="550" y="42" class="accent">트랜스포머 블록 × N층 — 대형 모델이면 수십~백여 층</text>')
     s.append('<text x="550" y="88" class="mut">각 블록 = 어텐션 + FFN · 파라미터의 대부분은 FFN에 있다</text>')
     s.append(
-        f'<g class="warn"><path d="M 90 {cy + 172} L 1010 {cy + 172}" class="flow" '
-        f'marker-end="url(#ar)"/></g>'
+        f'<path d="M 90 {cy + 172} L 1010 {cy + 172}" class="flow" marker-end="url(#ar)"/>'
         f'<text x="550" y="{cy + 158}" class="warn">'
         f'토큰 하나가 답이 되려면 이 전체를 처음부터 끝까지 한 번 통과한다</text>'
     )
