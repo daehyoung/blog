@@ -182,6 +182,7 @@ LLM은 크게 두 단계를 거칩니다.
 #### 📚 시리즈 내비게이션
 
 - **코딩 버전:** [왜 SW 엔지니어링을 가르쳐야 하는가](/blog/teaching-swe-to-models/01-why-teach-engineering) — 같은 문제가 코딩에서 나타나는 모습
+- **이전 편:** [개요 · 같은 모델을 쓰는데 왜 결과가 다를까](/blog/beating-the-average/00-overview)
 - **1편 (지금):** 왜 내 AI는 다른 사람들의 AI보다 일을 못하나? ← 현재 글
 - **다음 편:** [2편 · 몸에 밴 여섯 가지 습관](/blog/beating-the-average/02-six-bad-habits)
 
