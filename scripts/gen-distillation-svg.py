@@ -220,3 +220,74 @@ write("convergence.svg", W, H,
   <text class="mut" x="{W/2}" y="{H-18}" font-size="13" text-anchor="middle">빠져나오기 어려운 웅덩이(로컬 미니멈)가 아니라, 애초에 경사가 없는 평지다 — 그래서 힘을 실어주면 다시 움직인다</text>
 ''')
 
+# ── ⑤ sampling.svg — 샘플링 간격: 중앙은 촘촘, 꼬리는 뻥 뚫림 ────────
+# 03편 §3의 논지. teacher는 유한 번만 샘플링하고, 그 사이는 student가
+# 보간(추측)으로 메운다. 꼬리는 저빈도라 샘플이 드물어 보간 거리가 멀다.
+# 샘플 위치를 확률의 등간격 분위수로 잡으면 밀도가 자연히 분포를 따른다.
+
+def inv_norm(p_):
+    """표준정규 역누적분포. erf 이분법으로 충분히 정확하게."""
+    lo, hi = -6.0, 6.0
+    for _ in range(80):
+        mid = (lo + hi) / 2
+        if 0.5 * (1 + math.erf(mid / math.sqrt(2))) < p_:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+W, H = 820, 400
+SX0, SX1, SBASE, SPEAK, SM = 80, 740, 255, 70, 3.2
+sx = lambda s: SX0 + (s + SM) / (2 * SM) * (SX1 - SX0)
+sy = lambda s: SBASE - math.exp(-s * s / 2) * (SBASE - SPEAK)
+sg = lambda a, b, close=True: bell((SX0 + SX1) / 2, SBASE, SPEAK, (SX1 - SX0) / 2, SM, 1.0, a, b, close)
+
+N = 23
+samples = [inv_norm(k / (N + 1)) for k in range(1, N + 1)]
+samples = [s for s in samples if abs(s) <= SM]
+
+ticks = "".join(
+    f'<line x1="{sx(s):.1f}" y1="{SBASE:.0f}" x2="{sx(s):.1f}" y2="{sy(s):.1f}" '
+    f'stroke="#2563eb" stroke-width="1.6" opacity="0.75"/>'
+    f'<circle cx="{sx(s):.1f}" cy="{SBASE:.0f}" r="3.2" fill="#2563eb"/>'
+    for s in samples)
+
+# 강조할 두 간격: 중앙 한 쌍, 꼬리 한 쌍
+mid = len(samples) // 2
+c1, c2 = samples[mid - 1], samples[mid]
+TC = samples[-1]           # 샘플이 존재하는 마지막 지점 = 꼬리 음영 경계
+t1, t2 = TC, SM            # 마지막 샘플 ~ 분포 끝: 샘플이 하나도 없는 구간
+gap_y = SBASE + 34
+
+def gap(a, b, y, label, sub, cls):
+    xa, xb = sx(a), sx(b)
+    return (f'<line class="axis" x1="{xa:.1f}" y1="{y}" x2="{xb:.1f}" y2="{y}"/>'
+            f'<line class="axis" x1="{xa:.1f}" y1="{y-5}" x2="{xa:.1f}" y2="{y+5}"/>'
+            f'<line class="axis" x1="{xb:.1f}" y1="{y-5}" x2="{xb:.1f}" y2="{y+5}"/>'
+            f'<text class="{cls}" x="{(xa+xb)/2:.1f}" y="{y+22}" font-size="13" text-anchor="middle">{label}</text>'
+            f'<text class="mut" x="{(xa+xb)/2:.1f}" y="{y+39}" font-size="12" text-anchor="middle">{sub}</text>')
+
+write("sampling.svg", W, H,
+      "종모양 분포 아래 샘플 눈금이 중앙에는 촘촘하고 꼬리로 갈수록 성기게 찍힌 그림", f'''
+  <path class="tailA" d="{sg(TC, SM)}" opacity="0.5"/>
+  <path class="tailA" d="{sg(-SM, -TC)}" opacity="0.5"/>
+  <path class="fillA" d="{sg(-TC, TC)}" opacity="0.55"/>
+  <path class="curve" d="{sg(-SM, SM, False)}"/>
+  {ticks}
+  <line class="axis" x1="{SX0-10}" y1="{SBASE}" x2="{SX1+10}" y2="{SBASE}"/>
+
+  <text class="lbl accent" x="{sx(0):.0f}" y="38" font-size="15" text-anchor="middle">│ = teacher에게 실제로 물어본 지점</text>
+  <text class="mut" x="{sx(0):.0f}" y="56" font-size="12.5" text-anchor="middle">무한히 물을 수 있지만, 실제로는 유한 번만 묻는다</text>
+
+  {gap(c1, c2, gap_y, "간격 좁다", "사이를 추측해도 거의 안 틀린다", "lbl accent")}
+  {gap(t1, t2, gap_y, "여기는 샘플이 0개", "통째로 추측해서 메운다", "lbl warn")}
+
+  <text class="warn" x="{sx(2.65):.0f}" y="{SBASE-52:.0f}" font-size="14" text-anchor="middle">꼬리</text>
+  <text class="mut"  x="{sx(2.65):.0f}" y="{SBASE-35:.0f}" font-size="12" text-anchor="middle">샘플이 없다</text>
+  <text class="lbl accent" x="{sx(-2.7):.0f}" y="{SBASE-52:.0f}" font-size="14" text-anchor="middle">꼬리</text>
+  <text class="mut"        x="{sx(-2.7):.0f}" y="{SBASE-35:.0f}" font-size="12" text-anchor="middle">샘플이 없다</text>
+
+  <text class="lbl" x="{W/2}" y="{H-42}" font-size="14.5" text-anchor="middle">샘플이 드물수록 <tspan class="warn">보간 거리</tspan>가 멀어지고, 멀어질수록 추측이 크게 빗나간다</text>
+  <text class="mut" x="{W/2}" y="{H-18}" font-size="13" text-anchor="middle">스캐너로 치면 스캔 라인 간격 — 촘촘한 데는 형상이 살고, 성긴 데는 사이를 지어내야 한다</text>
+''')
+
