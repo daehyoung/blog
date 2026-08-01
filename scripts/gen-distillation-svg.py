@@ -120,41 +120,66 @@ write("distillation.svg", W, H,
   <text class="mut" x="{W/2}" y="355" font-size="13" text-anchor="middle">중앙은 선생님에 근접하지만, 회색으로 남은 꼬리만큼이 구조적으로 손실된다</text>
 ''')
 
-# ── ③ scanner.svg — 커버리지 측정 불가 ─────────────────────────────
-W, H = 840, 400
-FRONT = "M 440 96 L 380 100 C 330 130, 320 240, 378 276 L 440 282 Z"
-BACK = "M 440 96 L 505 102 C 570 140, 566 244, 500 276 L 440 282 Z"
-OUT_ = "M 380 100 C 330 130, 320 240, 378 276 L 500 276 C 566 244, 570 140, 505 102 Z"
-write("scanner.svg", W, H,
-      "라인 스캐너가 물체의 앞면만 스캔하고 뒷면은 데이터에 없는 상황", f'''
-  <rect class="box" x="40" y="128" width="84" height="118"/>
-  <text class="lbl accent" x="82" y="118" font-size="14" text-anchor="middle">라인 스캐너</text>
-  <rect x="124" y="177" width="13" height="20" fill="#2563eb"/>
-  <g stroke="#2563eb" stroke-width="1.3" opacity="0.5">
-    <line x1="137" y1="187" x2="345" y2="112"/><line x1="137" y1="187" x2="330" y2="150"/>
-    <line x1="137" y1="187" x2="325" y2="190"/><line x1="137" y1="187" x2="332" y2="232"/>
-    <line x1="137" y1="187" x2="352" y2="272"/>
-  </g>
-  <text class="mut" x="232" y="308" font-size="12.5" text-anchor="middle">비춘 곳만 데이터가 된다</text>
-  <path class="fillA" d="{FRONT}"/>
-  <path class="ghost" d="{BACK}"/>
-  <path class="dash"  d="M 440 96 L 440 282"/>
-  <path class="curve" d="{OUT_}"/>
-  <text class="lbl accent" x="392" y="196" font-size="13.5" text-anchor="middle">스캔됨</text>
-  <text class="mut" x="500" y="196" font-size="13.5" text-anchor="middle">?</text>
-  <text class="mut" x="450" y="308" font-size="12.5" text-anchor="middle">물체 — 전체 크기를 모른다</text>
-  <path class="dash" d="M 528 168 L 596 140"/>
-  <text class="warn" x="672" y="132" font-size="15" text-anchor="middle">스캔 안 된 면</text>
-  <text class="mut" x="672" y="153" font-size="12.5" text-anchor="middle">뭐가 있는지는커녕</text>
-  <text class="mut" x="672" y="171" font-size="12.5" text-anchor="middle">있는지조차 모른다</text>
-  <rect class="box" x="580" y="212" width="186" height="13" rx="6.5"/>
-  <rect x="582" y="214" width="152" height="9" rx="4.5" fill="#2563eb"/>
-  <text class="lbl" x="673" y="203" font-size="14" text-anchor="middle">진행률 90% 완료</text>
-  <text class="warn" x="673" y="250" font-size="14.5" text-anchor="middle">무엇에 대한 90%?</text>
-  <text class="mut" x="673" y="271" font-size="12.5" text-anchor="middle">분모를 모르니 이 숫자는</text>
-  <text class="mut" x="673" y="289" font-size="12.5" text-anchor="middle">거짓말일 수 있다</text>
-  <text class="lbl" x="{W/2}" y="348" font-size="14.5" text-anchor="middle">커버리지를 재려면 <tspan class="accent">분모</tspan>가 있어야 하는데, 지식 분포에는 그 분모가 없다</text>
-  <text class="mut" x="{W/2}" y="373" font-size="13" text-anchor="middle">그래서 분모를 &apos;세상의 모든 입력&apos;이 아니라 &apos;실제로 들어오는 입력&apos;으로 바꾼다 — 그게 도메인 좁히기다</text>
+# ── ③ paintball.svg — 페인트볼로 형상 유추 (커버리지 측정 불가) ────
+# 페인트볼 한 발 = 질문 하나. 맞은 자리에만 자국이 남고, 그 자국들을 이어
+# 형상을 유추한다. 안 쏜 방향은 '검은 것'이 아니라 아예 데이터에 없다.
+W, H = 860, 410
+CXO, CYO = 430, 195          # 물체 중심
+def blob_r(a):               # 각도별 반지름 — 살짝 찌그러진 형태
+    return 96 + 13 * math.sin(2.2 * a + 0.7) + 8 * math.cos(3.1 * a)
+
+def blob_path(a0=0, a1=2 * math.pi):
+    n = 160
+    pts = [(CXO + blob_r(a0 + (a1 - a0) * i / n) * math.cos(a0 + (a1 - a0) * i / n),
+            CYO + blob_r(a0 + (a1 - a0) * i / n) * math.sin(a0 + (a1 - a0) * i / n))
+           for i in range(n + 1)]
+    return "M " + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+
+# 자국: 왼쪽(쏜 방향)에 밀집, 가장자리로 갈수록 성기게. 오른쪽은 0발.
+spots = []
+for i in range(34):
+    u = i / 33
+    a = math.pi * (0.62 + 0.76 * u)                 # 약 112° ~ 249°
+    dens = math.cos((u - 0.5) * math.pi) ** 1.6     # 가운데가 촘촘
+    if i % 2 == 0 or dens > 0.55:
+        r = blob_r(a)
+        spots.append((CXO + r * math.cos(a), CYO + r * math.sin(a), 3.2 + 2.4 * dens))
+dots = "".join(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{s:.1f}" fill="#2563eb" opacity="0.9"/>'
+                for x, y, s in spots)
+shots = "".join(
+    f'<line x1="152" y1="196" x2="{x:.1f}" y2="{y:.1f}" stroke="#2563eb" '
+    f'stroke-width="1" opacity="0.3"/>' for x, y, _ in spots[::5])
+
+write("paintball.svg", W, H,
+      "어둠 속 물체에 페인트볼을 쏴서 맞은 자국으로 형상을 유추하는 그림. 안 쏜 뒷면에는 자국이 없다", f'''
+  <rect class="box" x="60" y="164" width="86" height="64"/>
+  <rect x="146" y="188" width="16" height="16" fill="#2563eb"/>
+  <text class="lbl accent" x="103" y="154" font-size="14" text-anchor="middle">질문 = 페인트볼 한 발</text>
+  <text class="mut" x="103" y="248" font-size="12.5" text-anchor="middle">지금까지 500발</text>
+  {shots}
+
+  <path class="dash" d="{blob_path()}"/>
+  <path class="curve" d="{blob_path(math.pi*0.6, math.pi*1.27)}"/>
+  {dots}
+
+  <text class="lbl accent" x="{CXO-52}" y="{CYO+4}" font-size="13.5" text-anchor="middle">자국이</text>
+  <text class="lbl accent" x="{CXO-52}" y="{CYO+21}" font-size="13.5" text-anchor="middle">남은 면</text>
+  <text class="mut" x="{CXO+48}" y="{CYO-2}" font-size="14" text-anchor="middle">?</text>
+  <text class="mut" x="{CXO+48}" y="{CYO+20}" font-size="12" text-anchor="middle">0발</text>
+  <text class="mut" x="{CXO}" y="{CYO+140}" font-size="12.5" text-anchor="middle">물체 — 얼마나 큰지 모른다</text>
+
+  <path class="dash" d="M 545 150 L 610 126"/>
+  <text class="warn" x="690" y="120" font-size="15" text-anchor="middle">안 쏜 방향</text>
+  <text class="mut"  x="690" y="141" font-size="12.5" text-anchor="middle">뭐가 있는지는커녕</text>
+  <text class="mut"  x="690" y="159" font-size="12.5" text-anchor="middle">있는지조차 모른다</text>
+
+  <text class="lbl"  x="690" y="205" font-size="14.5" text-anchor="middle">500발 쐈다 — 그런데</text>
+  <text class="warn" x="690" y="228" font-size="15" text-anchor="middle">전체의 몇 %인가?</text>
+  <text class="mut"  x="690" y="250" font-size="12.5" text-anchor="middle">분모(물체 크기)를 모르니</text>
+  <text class="mut"  x="690" y="268" font-size="12.5" text-anchor="middle">완성도가 계산되지 않는다</text>
+
+  <text class="lbl" x="{W/2}" y="{H-42}" font-size="14.5" text-anchor="middle">자국을 이어 형상을 <tspan class="accent">유추</tspan>한다 — 쏜 자리만 알고, 나머지는 지어낸다</text>
+  <text class="mut" x="{W/2}" y="{H-18}" font-size="13" text-anchor="middle">그래서 분모를 &apos;물체 전체&apos;가 아니라 &apos;실제로 만지는 부위&apos;로 바꾼다 — 그게 도메인 좁히기다</text>
 ''')
 
 # ── ④ convergence.svg — 겉보기 수렴 vs 실제 지형 ────────────────────
@@ -288,6 +313,6 @@ write("sampling.svg", W, H,
   <text class="mut"        x="{sx(-2.7):.0f}" y="{SBASE-35:.0f}" font-size="12" text-anchor="middle">샘플이 없다</text>
 
   <text class="lbl" x="{W/2}" y="{H-42}" font-size="14.5" text-anchor="middle">샘플이 드물수록 <tspan class="warn">보간 거리</tspan>가 멀어지고, 멀어질수록 추측이 크게 빗나간다</text>
-  <text class="mut" x="{W/2}" y="{H-18}" font-size="13" text-anchor="middle">스캐너로 치면 스캔 라인 간격 — 촘촘한 데는 형상이 살고, 성긴 데는 사이를 지어내야 한다</text>
+  <text class="mut" x="{W/2}" y="{H-18}" font-size="13" text-anchor="middle">페인트볼로 치면 자국 밀도 — 촘촘한 데는 형상이 살고, 성긴 데는 사이를 지어내야 한다</text>
 ''')
 

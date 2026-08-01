@@ -44,5 +44,5 @@
   <text class="mut"        x="132" y="220" font-size="12" text-anchor="middle">샘플이 없다</text>
 
   <text class="lbl" x="410.0" y="358" font-size="14.5" text-anchor="middle">샘플이 드물수록 <tspan class="warn">보간 거리</tspan>가 멀어지고, 멀어질수록 추측이 크게 빗나간다</text>
-  <text class="mut" x="410.0" y="382" font-size="13" text-anchor="middle">스캐너로 치면 스캔 라인 간격 — 촘촘한 데는 형상이 살고, 성긴 데는 사이를 지어내야 한다</text>
+  <text class="mut" x="410.0" y="382" font-size="13" text-anchor="middle">페인트볼로 치면 자국 밀도 — 촘촘한 데는 형상이 살고, 성긴 데는 사이를 지어내야 한다</text>
 </svg>
