@@ -156,3 +156,67 @@ write("scanner.svg", W, H,
   <text class="lbl" x="{W/2}" y="348" font-size="14.5" text-anchor="middle">커버리지를 재려면 <tspan class="accent">분모</tspan>가 있어야 하는데, 지식 분포에는 그 분모가 없다</text>
   <text class="mut" x="{W/2}" y="373" font-size="13" text-anchor="middle">그래서 분모를 &apos;세상의 모든 입력&apos;이 아니라 &apos;실제로 들어오는 입력&apos;으로 바꾼다 — 그게 도메인 좁히기다</text>
 ''')
+
+# ── ④ convergence.svg — 겉보기 수렴 vs 실제 지형 ────────────────────
+# 본문은 이것을 '로컬 미니멈'이 아니라 '평지(plateau)'로 설명한다.
+# 로컬 미니멈 = 빠져나오기 어려운 웅덩이 / 평지 = 애초에 미는 힘이 없는 곳.
+# 원인이 '확률 가중이 작아 gradient가 안 실림'이므로 평지가 맞다.
+W, H = 880, 430
+AX, AY, AW, AH = 70, 90, 320, 175          # 왼쪽 패널(계기판)
+BX, BY, BW, BH = 500, 90, 320, 175         # 오른쪽 패널(지형)
+
+def loss_curve():
+    n = 120
+    pts = []
+    for i in range(n + 1):
+        t = i / n
+        y = 0.08 + 0.92 * math.exp(-t * 6.5)          # 빠르게 떨어져 바닥에 눕는다
+        pts.append((AX + t * AW, AY + (1 - y) * AH))
+    return "M " + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+
+def landscape(t):
+    """왼쪽에 깊은 골짜기, 오른쪽에 높고 평평한 평지."""
+    return 0.62 - 0.55 * math.exp(-((t - 0.24) / 0.135) ** 2) + 0.12 / (1 + math.exp(-(t - 0.52) / 0.035))
+
+def land_path():
+    n = 200
+    # SVG는 y가 아래로 커진다. loss가 낮을수록 화면 아래(골짜기)가 되도록 반전.
+    pts = [(BX + i / n * BW, BY + (1 - landscape(i / n)) * BH) for i in range(n + 1)]
+    return "M " + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+
+bx_valley, bx_flat = 0.24, 0.82
+vx, vy = BX + bx_valley * BW, BY + (1 - landscape(bx_valley)) * BH
+fx, fy = BX + bx_flat * BW, BY + (1 - landscape(bx_flat)) * BH
+
+write("convergence.svg", W, H,
+      "왼쪽은 평평해진 loss 곡선, 오른쪽은 골짜기에 안착한 공과 평지에 방치된 공", f'''
+  <text class="lbl accent" x="{AX+AW/2:.0f}" y="62" font-size="16" text-anchor="middle">우리가 보는 것 — 계기판</text>
+  <text class="lbl accent" x="{BX+BW/2:.0f}" y="62" font-size="16" text-anchor="middle">실제로 일어나는 것 — 지형</text>
+
+  <line class="axis" x1="{AX}" y1="{AY+AH}" x2="{AX+AW+12}" y2="{AY+AH}"/>
+  <line class="axis" x1="{AX}" y1="{AY-8}"  x2="{AX}" y2="{AY+AH}"/>
+  <text class="mut" x="{AX-8}" y="{AY+4}" font-size="12" text-anchor="end">loss</text>
+  <text class="mut" x="{AX+AW+14}" y="{AY+AH+16}" font-size="12" text-anchor="end">학습 진행 →</text>
+  <path class="curve" d="{loss_curve()}"/>
+  <line class="gridln" x1="{AX+AW*0.55:.0f}" y1="{AY+AH*0.86:.0f}" x2="{AX+AW:.0f}" y2="{AY+AH*0.86:.0f}"/>
+  <text class="lbl" x="{AX+AW*0.78:.0f}" y="{AY+AH*0.72:.0f}" font-size="13.5" text-anchor="middle">더 안 줄어든다</text>
+  <text class="mut" x="{AX+AW/2:.0f}" y="{AY+AH+42:.0f}" font-size="13" text-anchor="middle">전체 loss가 납작해졌다 → &quot;수렴했다, 학습 끝&quot;</text>
+  <text class="warn" x="{AX+AW/2:.0f}" y="{AY+AH+63:.0f}" font-size="13" text-anchor="middle">그런데 이 곡선은 평균이라, 꼬리의 실패를 못 본다</text>
+
+  <path class="curve" d="{land_path()}"/>
+  <line class="gridln" x1="{fx-70:.0f}" y1="{fy:.0f}" x2="{fx+60:.0f}" y2="{fy:.0f}"/>
+  <circle cx="{vx:.0f}" cy="{vy-9:.0f}" r="9" fill="#2563eb"/>
+  <circle cx="{fx:.0f}" cy="{fy-9:.0f}" r="9" fill="#dc2626"/>
+  <text class="lbl accent" x="{vx:.0f}" y="{vy-64:.0f}" font-size="13.5" text-anchor="middle">중앙</text>
+  <text class="mut"        x="{vx:.0f}" y="{vy-46:.0f}" font-size="12" text-anchor="middle">바닥에 도착</text>
+  <text class="mut"        x="{vx:.0f}" y="{vy-29:.0f}" font-size="12" text-anchor="middle">= 정답</text>
+  <text class="lbl warn" x="{fx:.0f}" y="{fy-26:.0f}" font-size="13.5" text-anchor="middle">꼬리</text>
+  <text class="mut"      x="{fx:.0f}" y="{fy+28:.0f}" font-size="12" text-anchor="middle">평지에 방치</text>
+  <text class="mut"      x="{fx:.0f}" y="{fy+45:.0f}" font-size="12" text-anchor="middle">= 틀린 채로 멈춤</text>
+  <text class="mut" x="{BX+BW/2:.0f}" y="{BY+BH+42:.0f}" font-size="13" text-anchor="middle">둘 다 기울기 ≈ 0 이라 안 움직인다 — 증상이 같다</text>
+  <text class="warn" x="{BX+BW/2:.0f}" y="{BY+BH+63:.0f}" font-size="13" text-anchor="middle">하나는 도착이고 하나는 방치다</text>
+
+  <text class="lbl" x="{W/2}" y="{H-42}" font-size="14.5" text-anchor="middle">꼬리가 멈춘 건 <tspan class="accent">다 배워서</tspan>가 아니라 <tspan class="warn">미는 힘이 없어서</tspan>다</text>
+  <text class="mut" x="{W/2}" y="{H-18}" font-size="13" text-anchor="middle">빠져나오기 어려운 웅덩이(로컬 미니멈)가 아니라, 애초에 경사가 없는 평지다 — 그래서 힘을 실어주면 다시 움직인다</text>
+''')
+
