@@ -16,6 +16,7 @@ GitHub Pages 배포: **https://daehyoung.github.io/blog/** (프로젝트 페이�
 ## 2. 구조
 
 ```
+content/drafts/                  # 작성 중 초안. 빌드 제외 + git 추적 안 함(.gitignore)
 content/posts/
   2026-06-28-llm-agents.md      # 원본(pillar)
   llm-agents-series/            # 시리즈: LLM 발전과 에이전트 (이론)
@@ -31,6 +32,20 @@ social/                         # 배포 초안(LinkedIn 등). 빌드 안 됨
 ```
 
 ## 3. 글 추가 규칙
+
+### 0) 글의 세 가지 상태 — 어디에 두느냐로 정해진다
+
+| 상태 | 위치 | 사이트 | git |
+|---|---|---|---|
+| **작성 중** | `content/drafts/` | 안 뜸(컬렉션 밖) | **추적 안 함**(.gitignore) |
+| **완성·보류** | `content/posts/` + `draft: true` | 안 뜸(게이트) | 커밋함 |
+| **예약 발행** | `content/posts/` + 미래 `date` | 그날 cron이 공개 | 커밋함 |
+
+- **새 글은 `content/drafts/`에서 시작한다.** 완성·검토가 끝나면 `content/posts/`로 옮긴다(그때 발행이다).
+- `content/drafts/`는 컬렉션 `base` 밖이라 **어떤 실수로도 사이트에 뜨지 않는다.** 게다가 git이 추적하지 않으므로 **공개 리포 소스에도 노출되지 않는다**(이 리포는 public이다).
+- `draft: true`는 *완성됐지만 지금은 안 내보내는* 글에 쓴다(예: 근거 논문 대기). 미완성 초안을 posts에 두고 플래그로 막는 방식은 **쓰지 않는다.**
+- ⚠️ **`git add -A content/posts` 금지.** 경로를 명시해 add한다. 과거에 이 명령으로 미검토 에세이가 커밋돼 예약 공개 직전까지 간 적이 있다.
+
 
 1. `content/posts/<series>/NN-slug.md`로 작성. frontmatter 필수:
    ```yaml

@@ -11,3 +11,5 @@ npm-debug.log*
 .env.production
 # macOS
 .DS_Store
+# 작성 중 초안 (완성 후 content/posts/로 이동)
+content/drafts/
