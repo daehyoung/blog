@@ -9,9 +9,15 @@
 색·라벨만 바꿀 거면 SVG를 직접 편집해도 되지만, 곡선 모양(±σ 범위,
 꼬리 경계 CUT, student 분포 폭 등)을 바꾸려면 여기서 바꾸고 다시 돌린다.
 
-다크모드: SVG 안에 prefers-color-scheme 미디어쿼리를 넣는다. <img>로
-로드되면 SVG가 자체 문서로 렌더되므로 이 쿼리가 동작한다. 인라인 SVG나
-Astro 이미지 파이프라인을 태우면 깨질 수 있으니 public/에 두고 <img>로 쓴다.
+다크모드: ⚠️ prefers-color-scheme 를 쓰지 않는다. 이 사이트의 테마는 OS 설정이
+아니라 <html data-theme> 수동 토글(localStorage, Layout.astro)인데, <img>로 불린
+SVG는 별개 문서라 그 data-theme 을 볼 수 없고 OS 설정만 안다. 그래서 "OS는
+다크인데 사이트는 라이트"에서 도해만 뒤집혀 흰 바탕에 흐린 글씨가 됐다(실제로 겪었다).
+
+대신 어느 배경에서나 읽히는 중립 팔레트로 그린다 — 면은 전부 반투명
+(fill-opacity)이라 배경색이 비쳐 보이고, 글자·선은 양쪽 대비 3:1 이상인
+중간 톤(#6b7280·#8a99ad)과 강조색(#3b82f6·#dc5a47)만 쓴다.
+public/ 에 두고 <img>로 쓰는 것은 그대로다(벡터라 최적화가 의미 없다).
 """
 import math, pathlib
 
@@ -19,28 +25,21 @@ OUT = pathlib.Path(__file__).resolve().parent.parent / "public" / "distillation-
 OUT.mkdir(parents=True, exist_ok=True)
 
 STYLE = """
-    :root { color-scheme: light dark; }
-    .curve  { fill: none; stroke: #2563eb; stroke-width: 2.2; }
-    .curve2 { fill: none; stroke: #0891b2; stroke-width: 2.2; }
-    .fillA  { fill: #dbeafe; } .fillB { fill: #cffafe; }
-    .tailA  { fill: #fca5a5; } .ghost { fill: #e5e7eb; }
-    .box    { fill: none; stroke: #9ca3af; stroke-width: 1.6; rx: 10; }
-    .axis   { stroke: #9ca3af; stroke-width: 1.4; }
-    .gridln { stroke: #9ca3af; stroke-width: 1; stroke-dasharray: 4 4; }
-    .dash   { stroke: #9ca3af; stroke-width: 1.4; stroke-dasharray: 5 5; fill: none; }
-    .arrow  { stroke: #2563eb; stroke-width: 2.4; fill: none; }
-    .lbl    { fill: #1f2937; font-family: system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; }
-    .mut    { fill: #6b7280; font-family: system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; }
-    .warn   { fill: #b91c1c; font-weight: 700; }
-    .accent { fill: #1d4ed8; font-weight: 700; }
-    @media (prefers-color-scheme: dark) {
-      .curve { stroke:#60a5fa } .curve2 { stroke:#22d3ee }
-      .fillA { fill:#1e3a5f } .fillB { fill:#164e63 }
-      .tailA { fill:#7f1d1d } .ghost { fill:#374151 }
-      .box,.axis,.dash,.gridln { stroke:#6b7280 }
-      .lbl { fill:#e5e7eb } .mut { fill:#9ca3af }
-      .warn { fill:#fca5a5 } .accent { fill:#93c5fd }
-    }"""
+    .curve  { fill: none; stroke: #4a90d9; stroke-width: 2.2; }
+    .curve2 { fill: none; stroke: #17a8bd; stroke-width: 2.2; }
+    .fillA  { fill: #4a90d9; fill-opacity: .22; }
+    .fillB  { fill: #17a8bd; fill-opacity: .20; }
+    .tailA  { fill: #dc5a47; fill-opacity: .32; }
+    .ghost  { fill: #8a99ad; fill-opacity: .22; }
+    .box    { fill: none; stroke: #8a99ad; stroke-opacity: .75; stroke-width: 1.6; rx: 10; }
+    .axis   { stroke: #8a99ad; stroke-width: 1.4; }
+    .gridln { stroke: #8a99ad; stroke-width: 1; stroke-dasharray: 4 4; }
+    .dash   { stroke: #8a99ad; stroke-width: 1.4; stroke-dasharray: 5 5; fill: none; }
+    .arrow  { stroke: #4a90d9; stroke-width: 2.4; fill: none; }
+    .lbl    { fill: #6b7280; font-family: system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; }
+    .mut    { fill: #8a929e; font-family: system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; }
+    .warn   { fill: #dc5a47; font-weight: 700; }
+    .accent { fill: #3b82f6; font-weight: 700; }"""
 
 
 def bell(cx, base, peak, half, smax=3.4, width=1.0, a=None, b=None, close=True):
@@ -120,66 +119,100 @@ write("distillation.svg", W, H,
   <text class="mut" x="{W/2}" y="355" font-size="13" text-anchor="middle">중앙은 선생님에 근접하지만, 회색으로 남은 꼬리만큼이 구조적으로 손실된다</text>
 ''')
 
-# ── ③ paintball.svg — 페인트볼로 형상 유추 (커버리지 측정 불가) ────
-# 페인트볼 한 발 = 질문 하나. 맞은 자리에만 자국이 남고, 그 자국들을 이어
-# 형상을 유추한다. 안 쏜 방향은 '검은 것'이 아니라 아예 데이터에 없다.
-W, H = 860, 410
-CXO, CYO = 430, 195          # 물체 중심
-def blob_r(a):               # 각도별 반지름 — 살짝 찌그러진 형태
-    return 96 + 13 * math.sin(2.2 * a + 0.7) + 8 * math.cos(3.1 * a)
+# ── ③ paintball-{before,after}.svg — 격자로 훑어 형상을 드러낸다 ────
+# ⚠️ 중요: 자국을 '윤곽 위'에 찍으면 안 된다 — 그건 이미 모양을 아는 셈이다.
+# 쏘는 쪽은 모양을 모르니 **일정 간격 격자로 난사**하고, 맞은 점의 집합이
+# 형상으로 드러난다. 그래서 두 장으로 나눴다:
+#   before — 격자만 있다(무엇이 어디 있는지 모른다)
+#   after  — 맞은 점이 모여 삼각형·사각형·원이 드러난다. 쏜 발수는 세지만
+#            격자를 어디까지 넓혀야 하는지는 모른다(= 분모 문제)
+PW, PH = 340, 286                 # 패널 하나 크기
+STEP = 20                         # 격자 간격
+GX0, GY0 = 26, 30                 # 패널 안 격자 시작 오프셋
+NX, NY = 15, 12                   # 격자 점 개수
 
-def blob_path(a0=0, a1=2 * math.pi):
-    n = 160
-    pts = [(CXO + blob_r(a0 + (a1 - a0) * i / n) * math.cos(a0 + (a1 - a0) * i / n),
-            CYO + blob_r(a0 + (a1 - a0) * i / n) * math.sin(a0 + (a1 - a0) * i / n))
-           for i in range(n + 1)]
-    return "M " + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
 
-# 자국: 왼쪽(쏜 방향)에 밀집, 가장자리로 갈수록 성기게. 오른쪽은 0발.
-spots = []
-for i in range(34):
-    u = i / 33
-    a = math.pi * (0.62 + 0.76 * u)                 # 약 112° ~ 249°
-    dens = math.cos((u - 0.5) * math.pi) ** 1.6     # 가운데가 촘촘
-    if i % 2 == 0 or dens > 0.55:
-        r = blob_r(a)
-        spots.append((CXO + r * math.cos(a), CYO + r * math.sin(a), 3.2 + 2.4 * dens))
-dots = "".join(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{s:.1f}" fill="#2563eb" opacity="0.9"/>'
-                for x, y, s in spots)
-shots = "".join(
-    f'<line x1="152" y1="196" x2="{x:.1f}" y2="{y:.1f}" stroke="#2563eb" '
-    f'stroke-width="1" opacity="0.3"/>' for x, y, _ in spots[::5])
+def grid_pts():
+    return [(GX0 + i * STEP, GY0 + j * STEP) for j in range(NY) for i in range(NX)]
 
-write("paintball.svg", W, H,
-      "어둠 속 물체에 페인트볼을 쏴서 맞은 자국으로 형상을 유추하는 그림. 안 쏜 뒷면에는 자국이 없다", f'''
-  <rect class="box" x="60" y="164" width="86" height="64"/>
-  <rect x="146" y="188" width="16" height="16" fill="#2563eb"/>
-  <text class="lbl accent" x="103" y="154" font-size="14" text-anchor="middle">질문 = 페인트볼 한 발</text>
-  <text class="mut" x="103" y="248" font-size="12.5" text-anchor="middle">지금까지 500발</text>
-  {shots}
 
-  <path class="dash" d="{blob_path()}"/>
-  <path class="curve" d="{blob_path(math.pi*0.6, math.pi*1.27)}"/>
-  {dots}
+def in_tri(x, y):
+    cx, cy, side = GX0 + 7 * STEP, GY0 + 6 * STEP, 200
+    h = side * math.sqrt(3) / 2
+    a, b, c = (cx, cy - h * 2 / 3), (cx + side / 2, cy + h / 3), (cx - side / 2, cy + h / 3)
+    def sign(p, q, r):
+        return (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])
+    s1, s2, s3 = sign(a, b, (x, y)), sign(b, c, (x, y)), sign(c, a, (x, y))
+    return (s1 >= 0 and s2 >= 0 and s3 >= 0) or (s1 <= 0 and s2 <= 0 and s3 <= 0)
 
-  <text class="lbl accent" x="{CXO-52}" y="{CYO+4}" font-size="13.5" text-anchor="middle">자국이</text>
-  <text class="lbl accent" x="{CXO-52}" y="{CYO+21}" font-size="13.5" text-anchor="middle">남은 면</text>
-  <text class="mut" x="{CXO+48}" y="{CYO-2}" font-size="14" text-anchor="middle">?</text>
-  <text class="mut" x="{CXO+48}" y="{CYO+20}" font-size="12" text-anchor="middle">0발</text>
-  <text class="mut" x="{CXO}" y="{CYO+140}" font-size="12.5" text-anchor="middle">물체 — 얼마나 큰지 모른다</text>
 
-  <path class="dash" d="M 545 150 L 610 126"/>
-  <text class="warn" x="690" y="120" font-size="15" text-anchor="middle">안 쏜 방향</text>
-  <text class="mut"  x="690" y="141" font-size="12.5" text-anchor="middle">뭐가 있는지는커녕</text>
-  <text class="mut"  x="690" y="159" font-size="12.5" text-anchor="middle">있는지조차 모른다</text>
+def in_sq(x, y):
+    cx, cy, s = GX0 + 7 * STEP, GY0 + 5.5 * STEP, 168
+    return abs(x - cx) <= s / 2 and abs(y - cy) <= s / 2
 
-  <text class="lbl"  x="690" y="205" font-size="14.5" text-anchor="middle">500발 쐈다 — 그런데</text>
-  <text class="warn" x="690" y="228" font-size="15" text-anchor="middle">전체의 몇 %인가?</text>
-  <text class="mut"  x="690" y="250" font-size="12.5" text-anchor="middle">분모(물체 크기)를 모르니</text>
-  <text class="mut"  x="690" y="268" font-size="12.5" text-anchor="middle">완성도가 계산되지 않는다</text>
 
-  <text class="lbl" x="{W/2}" y="{H-42}" font-size="14.5" text-anchor="middle">자국을 이어 형상을 <tspan class="accent">유추</tspan>한다 — 쏜 자리만 알고, 나머지는 지어낸다</text>
-  <text class="mut" x="{W/2}" y="{H-18}" font-size="13" text-anchor="middle">그래서 분모를 &apos;물체 전체&apos;가 아니라 &apos;실제로 만지는 부위&apos;로 바꾼다 — 그게 도메인 좁히기다</text>
+def in_circ(x, y):
+    """일부러 격자 오른쪽 밖으로 삐져나가게 둔다 — '격자 밖은 아예 안 쐈다'를 보이려고."""
+    cx, cy, r = GX0 + 11 * STEP, GY0 + 5.5 * STEP, 108
+    return (x - cx) ** 2 + (y - cy) ** 2 <= r * r
+
+
+def panel(ox, name, hit, note, extra=""):
+    pts = grid_pts()
+    hits = [(x, y) for x, y in pts if hit(x, y)]
+    dots = "".join(
+        f'<circle cx="{ox + x}" cy="{y}" r="2.2" fill="#8a99ad" fill-opacity=".38"/>'
+        for x, y in pts if not hit(x, y))
+    marks = "".join(
+        f'<circle cx="{ox + x}" cy="{y}" r="6.4" fill="#4a90d9" fill-opacity=".85"/>'
+        for x, y in hits)
+    return len(hits), len(pts), f'''
+  <rect x="{ox}" y="14" width="{PW}" height="{PH}" rx="12" fill="#8a99ad" fill-opacity=".05"
+        stroke="#8a99ad" stroke-opacity=".4" stroke-width="1.6"/>
+  {dots}{marks}{extra}
+  <text class="accent" x="{ox + PW/2:.0f}" y="{PH + 44}" font-size="17" text-anchor="middle">{name}</text>
+  <text class="lbl" x="{ox + PW/2:.0f}" y="{PH + 68}" font-size="14" text-anchor="middle">맞은 자국 {len(hits)}발 / 쏜 {len(pts)}발</text>
+  <text class="mut" x="{ox + PW/2:.0f}" y="{PH + 88}" font-size="12.5" text-anchor="middle">{note}</text>'''
+
+# before — 격자만
+gp = grid_pts()
+dots_only = "".join(f'<circle cx="{26 + x}" cy="{y}" r="2.6" fill="#8a99ad" fill-opacity=".55"/>'
+                    for x, y in gp)
+write("paintball-before.svg", 900, 420,
+      "쏘기 전. 무엇이 어디 있는지 모르므로 일정 간격 격자로 쏠 자리만 정해 둔 그림", f'''
+  <rect class="box" x="30" y="176" width="104" height="66"/>
+  <rect x="134" y="200" width="16" height="16" fill="#4a90d9"/>
+  <text class="lbl accent" x="82" y="166" font-size="14" text-anchor="middle">질문 한 발 = 페인트볼 한 발</text>
+  <text class="mut" x="82" y="262" font-size="12.5" text-anchor="middle">모양을 모르니 겨눌 곳이 없다</text>
+  <line x1="150" y1="208" x2="196" y2="180" class="dash"/>
+  <line x1="150" y1="208" x2="196" y2="236" class="dash"/>
+
+  <g transform="translate(170,80)">{dots_only}</g>
+  <rect x="188" y="100" width="{NX*STEP+10}" height="{NY*STEP+10}" rx="10" fill="none"
+        stroke="#8a99ad" stroke-opacity=".45" stroke-width="1.6" stroke-dasharray="7 7"/>
+  <text class="lbl" x="{188+(NX*STEP+10)/2:.0f}" y="90" font-size="15" font-weight="700"
+        text-anchor="middle">그래서 일정 간격으로 훑는다 — 격자 {NX}×{NY} = {len(gp)}발</text>
+  <text class="mut" x="{188+(NX*STEP+10)/2:.0f}" y="{100+NY*STEP+34:.0f}" font-size="13"
+        text-anchor="middle">각 점이 "여기 쏴 본다"는 뜻. 아직 무엇이 있는지는 모른다</text>
+  <text class="warn" x="450" y="404" font-size="16" text-anchor="middle">쏘기 전 — 무엇인지도, 얼마나 큰지도, 격자를 어디까지 넓혀야 하는지도 모른다</text>
+''')
+
+# after — 맞은 점의 집합이 형상
+h1, n1, p1 = panel(20, "삼각형", in_tri, "격자 간격이 굵으면 경계가 계단처럼 뭉개진다")
+h2, n2, p2 = panel(400, "사각형", in_sq, "같은 격자, 같은 발수인데 자국 수가 다르다")
+# '격자 밖'을 눈에 보이게 — 원이 여기로 삐져나갔지만 한 발도 안 쐈다
+_cx = 780 + GX0 + (NX - 1) * STEP + 12
+clip_note = (f'<rect x="{_cx}" y="14" width="{1120 - _cx}" height="{PH}" fill="#dc5a47" fill-opacity=".13"/>'
+             f'<text class="warn" x="{_cx + (1120 - _cx) / 2:.0f}" y="{PH - 6}" font-size="11" '
+             f'text-anchor="middle" transform="rotate(-90 {_cx + (1120 - _cx) / 2:.0f} {PH - 6})">'
+             f'격자 밖 · 안 쐈다</text>')
+h3, n3, p3 = panel(780, "원", in_circ,
+                   "오른쪽이 격자 밖으로 나갔다 — 거기는 아예 안 쐈다", clip_note)
+
+write("paintball-after.svg", 1160, 420,
+      "쏜 뒤. 격자에서 맞은 점들의 집합이 삼각형·사각형·원의 형상으로 드러난 그림", f'''
+{p1}{p2}{p3}
+  <text class="warn" x="580" y="{PH + 112}" font-size="16.5" text-anchor="middle">쏜 발수는 셀 수 있다. 모르는 건 <tspan class="warn">격자를 어디까지 넓혀야 하는가</tspan>다 — 그게 분모다</text>
 ''')
 
 # ── ④ convergence.svg — 겉보기 수렴 vs 실제 지형 ────────────────────

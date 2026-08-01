@@ -1,28 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" role="img"
      aria-label="큰 teacher 모델이 작은 student 모델에게 정답 신호를 넘겨주는 증류 구조도">
   <style>
-    :root { color-scheme: light dark; }
-    .curve  { fill: none; stroke: #2563eb; stroke-width: 2.2; }
-    .curve2 { fill: none; stroke: #0891b2; stroke-width: 2.2; }
-    .fillA  { fill: #dbeafe; } .fillB { fill: #cffafe; }
-    .tailA  { fill: #fca5a5; } .ghost { fill: #e5e7eb; }
-    .box    { fill: none; stroke: #9ca3af; stroke-width: 1.6; rx: 10; }
-    .axis   { stroke: #9ca3af; stroke-width: 1.4; }
-    .gridln { stroke: #9ca3af; stroke-width: 1; stroke-dasharray: 4 4; }
-    .dash   { stroke: #9ca3af; stroke-width: 1.4; stroke-dasharray: 5 5; fill: none; }
-    .arrow  { stroke: #2563eb; stroke-width: 2.4; fill: none; }
-    .lbl    { fill: #1f2937; font-family: system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; }
-    .mut    { fill: #6b7280; font-family: system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; }
-    .warn   { fill: #b91c1c; font-weight: 700; }
-    .accent { fill: #1d4ed8; font-weight: 700; }
-    @media (prefers-color-scheme: dark) {
-      .curve { stroke:#60a5fa } .curve2 { stroke:#22d3ee }
-      .fillA { fill:#1e3a5f } .fillB { fill:#164e63 }
-      .tailA { fill:#7f1d1d } .ghost { fill:#374151 }
-      .box,.axis,.dash,.gridln { stroke:#6b7280 }
-      .lbl { fill:#e5e7eb } .mut { fill:#9ca3af }
-      .warn { fill:#fca5a5 } .accent { fill:#93c5fd }
-    }
+    .curve  { fill: none; stroke: #4a90d9; stroke-width: 2.2; }
+    .curve2 { fill: none; stroke: #17a8bd; stroke-width: 2.2; }
+    .fillA  { fill: #4a90d9; fill-opacity: .22; }
+    .fillB  { fill: #17a8bd; fill-opacity: .20; }
+    .tailA  { fill: #dc5a47; fill-opacity: .32; }
+    .ghost  { fill: #8a99ad; fill-opacity: .22; }
+    .box    { fill: none; stroke: #8a99ad; stroke-opacity: .75; stroke-width: 1.6; rx: 10; }
+    .axis   { stroke: #8a99ad; stroke-width: 1.4; }
+    .gridln { stroke: #8a99ad; stroke-width: 1; stroke-dasharray: 4 4; }
+    .dash   { stroke: #8a99ad; stroke-width: 1.4; stroke-dasharray: 5 5; fill: none; }
+    .arrow  { stroke: #4a90d9; stroke-width: 2.4; fill: none; }
+    .lbl    { fill: #6b7280; font-family: system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; }
+    .mut    { fill: #8a929e; font-family: system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; }
+    .warn   { fill: #dc5a47; font-weight: 700; }
+    .accent { fill: #3b82f6; font-weight: 700; }
   </style>
 
   <rect class="box" x="30" y="55" width="290" height="230"/>
