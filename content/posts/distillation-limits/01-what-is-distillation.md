@@ -21,7 +21,7 @@ series_order: 1
 
 보통의 학습은 정답을 **하드 라벨**로 준다. one-hot 벡터, 사람이 쓴 텍스트 같은 것이다. 증류는 대신 **더 강한 teacher 모델의 출력** 을 정답 신호로 쓴다. 그 신호는 두 가지 형태를 띤다.
 
-- **soft label** — teacher가 내놓는 전체 어휘에 대한 확률 분포(logits). 정보량이 훨씬 많다.
+- **soft label** — teacher가 내놓는 전체 어휘에 대한 확률 분포. logit(softmax 직전 점수)에 temperature를 적용해 softmax를 통과시킨 결과다. 정보량이 훨씬 많다.
 - **생성 텍스트** — teacher가 그냥 만들어낸 응답. 요즘 실무에서 압도적으로 흔한 방식이다.
 
 이 둘 중 무엇을 쓰느냐에 따라 적용 가능한 학습 단계가 갈린다.
@@ -81,7 +81,7 @@ teacher의 선호 판단을 신호로 쓰는 RLAIF(Reinforcement Learning from A
 
 증류의 한계를 말할 때 흔히 "증류하면 분포가 중앙값에 몰리고 엣지 케이스가 빠진다"고 설명한다. 이 직관은 **결론은 맞지만 원인 진단이 틀렸다.**
 
-soft label 증류는 오히려 꼬리 정보를 하드 라벨보다 **더 많이** 넘겨준다. Hinton이 2015년 원논문[^hinton]에서 강조한 게 정확히 이것이다. one-hot 하드 라벨은 "정답은 A"라는 한 점짜리 신호라 꼬리 정보가 **0** 이다. 반면 teacher의 soft 분포는 "A가 0.7인데 B도 0.2, C는 0.001…"이라는 **작은 확률값(dark knowledge, 숨은 지식)** 을 담고 있고, temperature(분포를 부드럽게 펴는 조절값)를 올리면 이 꼬리가 더 잘 보이게 증폭된다.
+soft label 증류는 오히려 꼬리 정보를 하드 라벨보다 **더 많이** 넘겨준다. Hinton이 원논문[^hinton]에서 강조한 게 정확히 이것이다. one-hot 하드 라벨은 "정답은 A"라는 한 점짜리 신호라 꼬리 정보가 **0** 이다. 반면 teacher의 soft 분포는 "A가 0.7인데 B도 0.2, C는 0.001…"이라는 **작은 확률값(dark knowledge, 숨은 지식)** 을 담고 있고, temperature(분포를 부드럽게 펴는 조절값)를 올리면 이 꼬리가 더 잘 보이게 증폭된다.
 
 그러니 "증류라서 중앙에 몰린다"는 틀렸다. 그런데도 극한 케이스에서 어이없는 출력이 나오는 건 사실이다. 진짜 범인은 따로 있다.
 
@@ -97,7 +97,7 @@ soft label 증류는 오히려 꼬리 정보를 하드 라벨보다 **더 많이
 
 ### 원인 1: 확률 가중 손실 (모든 학습의 공통 성질)
 
-cross-entropy든 KL이든, 손실(모델이 얼마나 틀렸는지의 척도)은 **분포의 확률로 가중** 된다. 3시그마 사건(1천 번에 한 번쯤 일어나는 드문 경우)은 발생 확률이 약 0.001이니, 그 지점에서 student가 틀려도 전체 손실에 기여하는 양이 0.001 수준이다. 옵티마이저(학습을 조절하는 알고리즘) 입장에선 **꼬리를 맞춰봐야 얻는 gradient(개선의 힘)가 거의 없다.** 그래서 꼬리를 태연하게 틀린다.
+cross-entropy든 KL이든, 손실(모델이 얼마나 틀렸는지의 척도)은 **분포의 확률로 가중** 된다. 3시그마 사건은 발생 확률이 0.001 남짓이다(단측 약 0.00135 ≈ 740번에 한 번, 양측 약 0.0027 ≈ 370번에 한 번). 그 지점에서 student가 틀려도 전체 손실에 기여하는 양이 그 정도 수준이다. 옵티마이저(학습을 조절하는 알고리즘) 입장에선 **꼬리를 맞춰봐야 얻는 gradient(개선의 힘)가 거의 없다.** 그래서 꼬리를 태연하게 틀린다.
 
 **teacher가 꼬리를 완벽히 알아도, 손실 함수 자체가 꼬리를 배우라고 압력을 넣지 않는다.** 이건 증류만의 문제가 아니라, "전체 오차를 최소화"하는 모든 표준 학습(MLE, Maximum Likelihood Estimation)의 공통 성질이다.
 > **교실 비유.** 시험을 앞둔 학생을 생각하자. 시험의 90%가 기본 유형이고, 아주 어려운 응용 문제는 1%도 안 나온다. 점수를 최대로 올리려면 어떻게 공부해야 할까? **당연히 자주 나오는 유형에 시간을 쏟고, 거의 안 나오는 어려운 문제는 건너뛴다.** 그게 점수 대비 가장 효율적이니까. 학생이 게을러서가 아니다. "점수를 올린다"는 목표를 충실히 따르면 **자동으로** 그렇게 된다. 어려운 문제 하나를 정복해봐야 점수는 거의 안 오르지만, 기본 유형을 조금만 더 다지면 점수가 확 오르기 때문이다. AI 학습도 똑같다. "전체 오차를 줄인다"는 목표를 따르면, 자주 나오는 경우에 자원이 쏠리고 드문 경우(꼬리)는 자연히 방치된다. 누가 시킨 게 아니라 목표 구조가 그렇게 만든다.
@@ -134,6 +134,6 @@ student는 작다. 뾰족한 모드와 두꺼운 꼬리를 동시에 표현할 �
 
 [^seqkd]: Yoon Kim, Alexander M. Rush, 「Sequence-Level Knowledge Distillation」, EMNLP 2016, pp. 1317–1327. — teacher가 *생성한 시퀀스(텍스트)* 로 student를 학습시키는 텍스트 레벨 증류의 정식화. 오늘날 실무 증류의 원형. <https://aclanthology.org/D16-1139/>
 
-[^hinton]: Geoffrey Hinton, Oriol Vinyals, Jeff Dean, 「Distilling the Knowledge in a Neural Network」, NeurIPS Deep Learning Workshop, 2015. arXiv:1503.02531. — 증류의 원전. 하드 라벨보다 teacher의 soft 분포(*dark knowledge*)가 더 풍부한 학습 신호라는 핵심 주장. <https://arxiv.org/abs/1503.02531>
+[^hinton]: Geoffrey Hinton, Oriol Vinyals, Jeff Dean, 「Distilling the Knowledge in a Neural Network」, NIPS 2014 Deep Learning Workshop (2014. 12.); arXiv 게재 2015. 3. — arXiv:1503.02531. — 증류의 원전. 하드 라벨보다 teacher의 soft 분포(*dark knowledge*)가 더 풍부한 학습 신호라는 핵심 주장. <https://arxiv.org/abs/1503.02531>
 
 [^kl]: Thomas Minka, 「Divergence Measures and Message Passing」, Microsoft Research Technical Report MSR-TR-2005-173, 2005. — *forward KL(mass-covering)* 대 *reverse KL(mode-seeking)* 의 상반된 거동. 1편 4절 '환각형 vs 탈락형' 실패 모드의 이론적 근거. <https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-2005-173.pdf>
