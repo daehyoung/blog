@@ -26,7 +26,23 @@ for (const p of all.filter((p) => p.data.series)) {
 for (const arr of seriesMap.values()) {
   arr.sort((a, b) => (a.data.series_order ?? 0) - (b.data.series_order ?? 0));
 }
-const seriesList = [...seriesMap.entries()];
+
+// 홈에는 시리즈당 '개요(들어가며)' 링크 하나만 노출한다.
+// 편별 목록은 각 시리즈 개요 글이 인덱스 역할을 한다(홈 → 시리즈 홈 → 각 편).
+const seriesList = [...seriesMap.entries()]
+  .map(([name, parts]) => {
+    // 개요 = series_order가 없는 글. 없으면 첫 편을 진입점으로 쓴다.
+    const entry = parts.find((p) => p.data.series_order == null) ?? parts[0];
+    const episodes = parts.filter((p) => p !== entry).length;
+    const latest = parts.reduce(
+      (max, p) => (p.data.date > max ? p.data.date : max),
+      parts[0].data.date,
+    );
+    // "들어가며 — 무엇무엇" 에서 뒷부분만 훅으로 쓴다.
+    const hook = entry.data.title.replace(/^들어가며\s*[—–-]\s*/, '');
+    return { name, entry, episodes, latest, hook };
+  })
+  .sort((a, b) => b.latest.valueOf() - a.latest.valueOf());
 ---
 
 <Layout
@@ -62,33 +78,50 @@ const seriesList = [...seriesMap.entries()];
   }
 
   {
-    seriesList.map(([name, parts]) => (
+    seriesList.length > 0 && (
       <section class="post-section">
         <h2 class="section-title">
           <span class="section-badge">시리즈</span>
-          {name}
+          연재
         </h2>
         <ul class="post-list">
-          {parts.map((post) => (
+          {seriesList.map((s) => (
             <li class="post-item">
               <h3 class="post-item-title">
-                {post.data.series_label ? (
-                  <span class="post-no">{post.data.series_label}</span>
-                ) : post.data.series_order != null ? (
-                  <span class="post-no">{post.data.series_order}편</span>
-                ) : null}
-                <a href={`${base}/${slugOf(post.id)}`}>{post.data.title}</a>
+                <span class="post-no">{s.name}</span>
+                <a href={`${base}/${slugOf(s.entry.id)}`}>{s.hook}</a>
               </h3>
+              {s.entry.data.description && (
+                <p class="series-desc">{s.entry.data.description}</p>
+              )}
               <div class="post-item-meta">
-                <time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time>
-                {post.data.tags?.slice(0, 5).map((t) => (
-                  <a class="tag" href={tagUrl(t)}>#{t}</a>
-                ))}
+                <time datetime={s.latest.toISOString()}>{fmtDate(s.latest)}</time>
+                <span class="series-count">{s.episodes}편</span>
+                {s.entry.data.tags
+                  ?.filter((t) => t !== '시리즈개요')
+                  .slice(0, 4)
+                  .map((t) => (
+                    <a class="tag" href={tagUrl(t)}>#{t}</a>
+                  ))}
               </div>
             </li>
           ))}
         </ul>
       </section>
-    ))
+    )
   }
 </Layout>
+
+<style>
+  .series-desc {
+    margin: 0.35rem 0 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 62ch;
+  }
+  .series-count {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>

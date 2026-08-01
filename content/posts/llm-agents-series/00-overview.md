@@ -4,6 +4,7 @@ date: 2026-06-28
 tags: [LLM, Agent, 시리즈개요, 에이전트]
 canonical_url: https://daehyoung.github.io/blog/llm-agents-series/00-overview/
 license: CC BY-NC 4.0
+description: "단발 질의응답에서 추론 모델로, 다시 도구를 쓰는 에이전트와 멀티 에이전트까지 — 각 세대가 무슨 문제를 만났고 어떻게 풀었는지를 순서대로 따라갑니다. 긴 컨텍스트의 대가, MoE와 양자화, 에이전트 루프와 하네스, RAG의 두 방식, 그리고 GPU 메모리가 왜 곱셈으로 소모되는지까지 다룹니다. 이 블로그의 이론 뿌리에 해당하는 시리즈입니다."
 series: "LLM의 발전 과정과 에이전트"
 source_post: 2026-06-28-llm-agents
 source_sections: [시리즈 개요]

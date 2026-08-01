@@ -4,6 +4,7 @@ date: 2026-06-29
 tags: [AI코딩, 소프트웨어공학, 에이전트, 시리즈개요]
 canonical_url: https://daehyoung.github.io/blog/ai-coding-series/00-overview/
 license: CC BY-NC 4.0
+description: "소프트웨어 개발은 늘 협업이었고, 사람 여럿이 큰 시스템을 만들며 겪은 문제는 이미 수십 년에 걸쳐 답이 나와 있습니다. 달라진 것은 팀원 자리에 AI가 앉았다는 것뿐입니다. 문서화·모듈화·설계 검증·단계별 프롬프트를 AI 협업에 옮기는 실전 원칙을 다룹니다. 바이브 코딩이 왜 비효율인지, 컨텍스트를 왜 가볍게 유지해야 하는지부터 시작합니다."
 series: "AI 코딩 실전"
 source_post: ai-context
 source_sections: [시리즈 개요]

@@ -4,6 +4,7 @@ date: 2026-07-24
 tags: [소프트웨어공학, 방법론, 과학적방법, 시리즈개요, AI코딩]
 canonical_url: https://daehyoung.github.io/blog/ai-era-engineering/00-overview/
 license: CC BY-NC 4.0
+description: "코딩을 과학적 방법으로 봅니다 — 귀납으로 짓고, 연역으로 부수고, 검증으로 지킵니다. 기능 목록 대신 유스케이스로 명세를 세우고, 코드를 쓰기 전에 도메인 모델을 스냅샷으로 검증하고, 버그를 포위망 좁히기로 잡고, 유닛 테스트로 방어선을 만드는 네 단계를 다룹니다. 설계 2부작에서 코드 2부작으로 이어집니다."
 series: "AI 시대의 실전 엔지니어링"
 ---
 

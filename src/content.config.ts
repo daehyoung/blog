@@ -10,6 +10,7 @@ const posts = defineCollection({
     date: z.coerce.date(),
     tags: z.array(z.string()).optional(),
     canonical_url: z.string().url().optional(),
+    description: z.string().optional(), // 홈 시리즈 카드 요약 (개요 글에 사용)
     license: z.string().optional(),
     draft: z.boolean().optional(),
     // 시리즈 추적 (원본 ↔ 분할 관계)

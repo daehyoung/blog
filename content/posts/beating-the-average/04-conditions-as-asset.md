@@ -256,4 +256,4 @@ SaaS 회사가 실제로 가진 것은 수년간 **수천 고객과 부딪히며
 #### 함께 읽으면 좋은 글
 
 - [왜 SW 엔지니어링을 가르쳐야 하는가](/blog/teaching-swe-to-models/01-why-teach-engineering) — 같은 문제가 코딩에서 나타나는 모습과, 공학이라는 처방
-- [증류 모델은 어디까지 믿을 수 있는가](/blog/distillation-limits) — 평균화가 모델 계보를 따라 전파되는 이야기
+- [증류 모델은 어디까지 믿을 수 있는가](/blog/distillation-limits/00-overview) — 평균화가 모델 계보를 따라 전파되는 이야기
