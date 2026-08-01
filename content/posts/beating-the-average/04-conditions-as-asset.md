@@ -251,7 +251,7 @@ SaaS 회사가 실제로 가진 것은 수년간 **수천 고객과 부딪히며
 #### 📚 시리즈 내비게이션
 
 - **개요:** [같은 모델을 쓰는데 왜 결과가 다를까](/blog/beating-the-average/00-overview) · **1편:** [왜 내 AI는 다른 사람들의 AI보다 일을 못하나?](/blog/beating-the-average/01-why-my-ai-works-average) · **2편:** [몸에 밴 여섯 가지 습관](/blog/beating-the-average/02-six-bad-habits) · **3편:** [교정 다섯 층](/blog/beating-the-average/03-five-layers)
-- **4편 (지금):** 조건이 자산이다 ← 현재 글 · **시리즈 완결**
+- **4편 (지금):** 조건이 자산이다 ← 현재 글 · **부록:** [이 글은 이렇게 쓰였다 — 논의로 사고를 벼리고, 집필을 시킨다](/blog/beating-the-average/05-appendix-thinking-with-llm)
 
 #### 함께 읽으면 좋은 글
 
