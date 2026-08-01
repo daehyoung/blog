@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 400" role="img"
+     aria-label="라인 스캐너가 물체의 앞면만 스캔하고 뒷면은 데이터에 없는 상황">
+  <style>
+    :root { color-scheme: light dark; }
+    .curve  { fill: none; stroke: #2563eb; stroke-width: 2.2; }
+    .curve2 { fill: none; stroke: #0891b2; stroke-width: 2.2; }
+    .fillA  { fill: #dbeafe; } .fillB { fill: #cffafe; }
+    .tailA  { fill: #fca5a5; } .ghost { fill: #e5e7eb; }
+    .box    { fill: none; stroke: #9ca3af; stroke-width: 1.6; rx: 10; }
+    .axis   { stroke: #9ca3af; stroke-width: 1.4; }
+    .dash   { stroke: #9ca3af; stroke-width: 1.4; stroke-dasharray: 5 5; fill: none; }
+    .arrow  { stroke: #2563eb; stroke-width: 2.4; fill: none; }
+    .lbl    { fill: #1f2937; font-family: system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; }
+    .mut    { fill: #6b7280; font-family: system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; }
+    .warn   { fill: #b91c1c; font-weight: 700; }
+    .accent { fill: #1d4ed8; font-weight: 700; }
+    @media (prefers-color-scheme: dark) {
+      .curve { stroke:#60a5fa } .curve2 { stroke:#22d3ee }
+      .fillA { fill:#1e3a5f } .fillB { fill:#164e63 }
+      .tailA { fill:#7f1d1d } .ghost { fill:#374151 }
+      .box,.axis,.dash { stroke:#6b7280 }
+      .arrow { stroke:#60a5fa }
+      .lbl { fill:#e5e7eb } .mut { fill:#9ca3af }
+      .warn { fill:#fca5a5 } .accent { fill:#93c5fd }
+    }
+  </style>
+
+  <rect class="box" x="40" y="128" width="84" height="118"/>
+  <text class="lbl accent" x="82" y="118" font-size="14" text-anchor="middle">라인 스캐너</text>
+  <rect x="124" y="177" width="13" height="20" fill="#2563eb"/>
+  <g stroke="#2563eb" stroke-width="1.3" opacity="0.5">
+    <line x1="137" y1="187" x2="345" y2="112"/><line x1="137" y1="187" x2="330" y2="150"/>
+    <line x1="137" y1="187" x2="325" y2="190"/><line x1="137" y1="187" x2="332" y2="232"/>
+    <line x1="137" y1="187" x2="352" y2="272"/>
+  </g>
+  <text class="mut" x="232" y="308" font-size="12.5" text-anchor="middle">비춘 곳만 데이터가 된다</text>
+
+  <path class="fillA" d="M 440 96 L 380 100 C 330 130, 320 240, 378 276 L 440 282 Z"/>
+  <path class="ghost" d="M 440 96 L 505 102 C 570 140, 566 244, 500 276 L 440 282 Z"/>
+  <path class="dash"  d="M 440 96 L 440 282"/>
+  <path class="curve" d="M 380 100 C 330 130, 320 240, 378 276 L 500 276 C 566 244, 570 140, 505 102 Z"/>
+
+  <text class="lbl accent" x="392" y="196" font-size="13.5" text-anchor="middle">스캔됨</text>
+  <text class="mut"        x="500" y="196" font-size="13.5" text-anchor="middle">?</text>
+  <text class="mut" x="450" y="308" font-size="12.5" text-anchor="middle">물체 — 전체 크기를 모른다</text>
+
+  <path class="dash" d="M 528 168 L 596 140"/>
+  <text class="warn" x="672" y="132" font-size="15" text-anchor="middle">스캔 안 된 면</text>
+  <text class="mut"  x="672" y="153" font-size="12.5" text-anchor="middle">뭐가 있는지는커녕</text>
+  <text class="mut"  x="672" y="171" font-size="12.5" text-anchor="middle">있는지조차 모른다</text>
+
+  <rect class="box" x="580" y="212" width="186" height="13" rx="6.5"/>
+  <rect x="582" y="214" width="152" height="9" rx="4.5" fill="#2563eb"/>
+  <text class="lbl"  x="673" y="203" font-size="14" text-anchor="middle">진행률 90% 완료</text>
+  <text class="warn" x="673" y="250" font-size="14.5" text-anchor="middle">무엇에 대한 90%?</text>
+  <text class="mut"  x="673" y="271" font-size="12.5" text-anchor="middle">분모를 모르니 이 숫자는</text>
+  <text class="mut"  x="673" y="289" font-size="12.5" text-anchor="middle">거짓말일 수 있다</text>
+
+  <text class="lbl" x="420.0" y="348" font-size="14.5" text-anchor="middle">커버리지를 재려면 <tspan class="accent">분모</tspan>가 있어야 하는데, 지식 분포에는 그 분모가 없다</text>
+  <text class="mut" x="420.0" y="373" font-size="13" text-anchor="middle">그래서 분모를 &apos;세상의 모든 입력&apos;이 아니라 &apos;실제로 들어오는 입력&apos;으로 바꾼다 — 그게 도메인 좁히기다</text>
+</svg>
