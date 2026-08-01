@@ -176,25 +176,30 @@ def panel(ox, name, hit, note, extra=""):
 
 # before — 격자만
 gp = grid_pts()
-dots_only = "".join(f'<circle cx="{26 + x}" cy="{y}" r="2.6" fill="#8a99ad" fill-opacity=".55"/>'
+dots_only = "".join(f'<circle cx="{x}" cy="{y}" r="2.6" fill="#8a99ad" fill-opacity=".55"/>'
                     for x, y in gp)
-write("paintball-before.svg", 900, 420,
-      "쏘기 전. 무엇이 어디 있는지 모르므로 일정 간격 격자로 쏠 자리만 정해 둔 그림", f'''
+write("paintball-before.svg", 980, 420,
+      "아주 멀리 있어 모양이 보이지 않는 표적. 겨눌 곳이 없으므로 일정 간격 격자로 쏠 자리만 정해 둔 그림", f'''
   <rect class="box" x="30" y="176" width="104" height="66"/>
   <rect x="134" y="200" width="16" height="16" fill="#4a90d9"/>
   <text class="lbl accent" x="82" y="166" font-size="14" text-anchor="middle">질문 한 발 = 페인트볼 한 발</text>
-  <text class="mut" x="82" y="262" font-size="12.5" text-anchor="middle">모양을 모르니 겨눌 곳이 없다</text>
-  <line x1="150" y1="208" x2="196" y2="180" class="dash"/>
-  <line x1="150" y1="208" x2="196" y2="236" class="dash"/>
+  <text class="mut" x="82" y="262" font-size="12.5" text-anchor="middle">모양이 안 보이니 겨눌 곳이 없다</text>
 
-  <g transform="translate(170,80)">{dots_only}</g>
-  <rect x="188" y="100" width="{NX*STEP+10}" height="{NY*STEP+10}" rx="10" fill="none"
+  <line x1="156" y1="208" x2="600" y2="208" class="dash"/>
+  <text class="lbl" x="378" y="196" font-size="14.5" font-weight="700" text-anchor="middle">표적이 아주 멀다</text>
+  <text class="mut" x="378" y="228" font-size="12.5" text-anchor="middle">무슨 모양인지, 얼마나 큰지 보이지 않는다</text>
+
+  <g transform="translate(608,80)">{dots_only}</g>
+  <rect x="626" y="100" width="{NX*STEP+8}" height="{NY*STEP+8}" rx="10" fill="none"
         stroke="#8a99ad" stroke-opacity=".45" stroke-width="1.6" stroke-dasharray="7 7"/>
-  <text class="lbl" x="{188+(NX*STEP+10)/2:.0f}" y="90" font-size="15" font-weight="700"
-        text-anchor="middle">그래서 일정 간격으로 훑는다 — 격자 {NX}×{NY} = {len(gp)}발</text>
-  <text class="mut" x="{188+(NX*STEP+10)/2:.0f}" y="{100+NY*STEP+34:.0f}" font-size="13"
-        text-anchor="middle">각 점이 "여기 쏴 본다"는 뜻. 아직 무엇이 있는지는 모른다</text>
-  <text class="warn" x="450" y="404" font-size="16" text-anchor="middle">쏘기 전 — 무엇인지도, 얼마나 큰지도, 격자를 어디까지 넓혀야 하는지도 모른다</text>
+  <text class="lbl" x="{626+(NX*STEP+8)/2:.0f}" y="88" font-size="14.5" font-weight="700"
+        text-anchor="middle">그래서 일정 간격으로 훑는다</text>
+  <text class="accent" x="{626+(NX*STEP+8)/2:.0f}" y="{100+NY*STEP+30:.0f}" font-size="14"
+        text-anchor="middle">격자 {NX}×{NY} = {len(gp)}발</text>
+  <text class="mut" x="{626+(NX*STEP+8)/2:.0f}" y="{100+NY*STEP+50:.0f}" font-size="12.5"
+        text-anchor="middle">각 점이 "여기 쏴 본다"는 뜻</text>
+
+  <text class="warn" x="490" y="404" font-size="16" text-anchor="middle">쏘기 전 — 무엇인지도, 얼마나 큰지도, 격자를 어디까지 넓혀야 하는지도 모른다</text>
 ''')
 
 # after — 맞은 점의 집합이 형상
@@ -209,10 +214,12 @@ clip_note = (f'<rect x="{_cx}" y="14" width="{1120 - _cx}" height="{PH}" fill="#
 h3, n3, p3 = panel(780, "원", in_circ,
                    "오른쪽이 격자 밖으로 나갔다 — 거기는 아예 안 쐈다", clip_note)
 
-write("paintball-after.svg", 1160, 420,
+write("paintball-after.svg", 1160, 486,
       "쏜 뒤. 격자에서 맞은 점들의 집합이 삼각형·사각형·원의 형상으로 드러난 그림", f'''
 {p1}{p2}{p3}
-  <text class="warn" x="580" y="{PH + 112}" font-size="16.5" text-anchor="middle">쏜 발수는 셀 수 있다. 모르는 건 <tspan class="warn">격자를 어디까지 넓혀야 하는가</tspan>다 — 그게 분모다</text>
+  <text class="lbl" x="580" y="{PH + 112}" font-size="15" text-anchor="middle"><tspan class="accent">회수해서 봐도</tspan> 손에 남는 건 격자 위 맞음/안 맞음 기록뿐 — 격자 사이는 여전히 유추다</text>
+  <text class="warn" x="580" y="{PH + 140}" font-size="16.5" text-anchor="middle">사격장 표적지엔 테두리가 있어 전체 면적을 안다. 지식 분포에는 그 테두리가 없다</text>
+  <text class="mut" x="580" y="{PH + 164}" font-size="13" text-anchor="middle">분자(쏜 발수)는 세지는데 분모가 없다 — 그래서 "몇 %"가 아예 계산되지 않는다</text>
 ''')
 
 # ── ④ convergence.svg — 겉보기 수렴 vs 실제 지형 ────────────────────

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 420" role="img"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 486" role="img"
      aria-label="쏜 뒤. 격자에서 맞은 점들의 집합이 삼각형·사각형·원의 형상으로 드러난 그림">
   <style>
     .curve  { fill: none; stroke: #4a90d9; stroke-width: 2.2; }
@@ -37,5 +37,7 @@
   <text class="accent" x="950" y="330" font-size="17" text-anchor="middle">원</text>
   <text class="lbl" x="950" y="354" font-size="14" text-anchor="middle">맞은 자국 78발 / 쏜 180발</text>
   <text class="mut" x="950" y="374" font-size="12.5" text-anchor="middle">오른쪽이 격자 밖으로 나갔다 — 거기는 아예 안 쐈다</text>
-  <text class="warn" x="580" y="398" font-size="16.5" text-anchor="middle">쏜 발수는 셀 수 있다. 모르는 건 <tspan class="warn">격자를 어디까지 넓혀야 하는가</tspan>다 — 그게 분모다</text>
+  <text class="lbl" x="580" y="398" font-size="15" text-anchor="middle"><tspan class="accent">회수해서 봐도</tspan> 손에 남는 건 격자 위 맞음/안 맞음 기록뿐 — 격자 사이는 여전히 유추다</text>
+  <text class="warn" x="580" y="426" font-size="16.5" text-anchor="middle">사격장 표적지엔 테두리가 있어 전체 면적을 안다. 지식 분포에는 그 테두리가 없다</text>
+  <text class="mut" x="580" y="450" font-size="13" text-anchor="middle">분자(쏜 발수)는 세지는데 분모가 없다 — 그래서 "몇 %"가 아예 계산되지 않는다</text>
 </svg>
